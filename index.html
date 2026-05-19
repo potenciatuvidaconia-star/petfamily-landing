@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MiPetFamily — La plataforma que conecta tu petshop con sus familias</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ───── Reset ───── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+img{display:block;max-width:100%}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+
+/* ───── Tokens ───── */
+:root{
+  /* Brand — Paleta B: Verde + Rojo (Primary #6BBD7A · Accent #E53935) */
+  --green:#6BBD7A;        /* ★ Primary */
+  --green-d:#4FA060;
+  --green-l:#D6EFDB;
+  --green-xl:#EAF6ED;
+  --green-50:#F2FAF4;
+  --mint:#D6EFDB;
+
+  --coral:#E53935;        /* ★ Accent */
+  --coral-d:#C62828;
+  --coral-l:#FDECEC;
+  --peach:#FCD7D6;
+  --cream:#FFF5F4;
+  --butter:#FFF0EE;
+
+  /* Text — dark green */
+  --slate:#1F3328;
+  --slate-d:#14241B;
+  --slate-l:#E8EFEA;
+  --slate-mid:#7A8C82;
+
+  /* Legacy aliases */
+  --blue:var(--green);
+  --blue-d:var(--green-d);
+  --blue-l:var(--green-xl);
+  --blue-mid:var(--mint);
+
+  /* Neutrals — cool green-tinted */
+  --ink:#1F3328;
+  --ink-2:#4A5C52;
+  --ink-3:#8A9991;
+  --line:#DDE7E1;
+  --line-2:#E8EFEA;
+  --paper:#F5FAF6;       /* soft green page */
+  --surface:#FFFFFF;
+  --surface-2:#EAF6ED;
+
+  --r-sm:8px;--r-md:12px;--r-lg:18px;--r-xl:28px;--r-2xl:36px;
+  --sh-sm:0 1px 3px rgba(40,28,15,.06),0 1px 2px rgba(40,28,15,.04);
+  --sh-md:0 6px 18px rgba(40,28,15,.07),0 2px 6px rgba(40,28,15,.05);
+  --sh-lg:0 24px 50px -12px rgba(40,28,15,.18),0 8px 16px rgba(40,28,15,.06);
+  --sh-pop:0 30px 60px -20px rgba(45,104,162,.35);
+}
+
+body{
+  font-family:'Fredoka','Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,sans-serif;
+  color:var(--ink);
+  background:var(--paper);
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+.container{max-width:1180px;margin:0 auto;padding:0 28px}
+.container-tight{max-width:980px;margin:0 auto;padding:0 28px}
+
+/* ───── Type ───── */
+.serif{font-family:'Fredoka',sans-serif;font-weight:600;letter-spacing:-.005em}
+.eyebrow{
+  font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--coral-d);
+  display:inline-flex;align-items:center;gap:8px;
+}
+.eyebrow::before{content:none}
+.eyebrow.green{color:var(--green-d)}
+.eyebrow.green::before{background:var(--green)}
+.eyebrow.blue{color:var(--blue)}
+.eyebrow.blue::before{background:var(--blue)}
+
+h1,h2,h3,h4{font-family:'Fredoka',sans-serif;font-weight:600;letter-spacing:-.01em;color:var(--ink)}
+.h-display{font-size:clamp(40px,6vw,72px);line-height:1.02;letter-spacing:-.025em;font-weight:600}
+.h-1{font-size:clamp(32px,4.2vw,52px);line-height:1.06;letter-spacing:-.02em}
+.h-2{font-size:clamp(26px,3vw,38px);line-height:1.12;letter-spacing:-.015em}
+.h-3{font-size:clamp(20px,2vw,24px);line-height:1.25;font-weight:600}
+.h-4{font-size:18px;line-height:1.35;font-weight:600;font-family:'Plus Jakarta Sans',sans-serif;letter-spacing:-.005em}
+
+.lede{font-size:clamp(16px,1.4vw,19px);line-height:1.6;color:var(--ink-2);font-weight:400}
+.body{font-size:15px;line-height:1.7;color:var(--ink-2)}
+.body-sm{font-size:13.5px;line-height:1.6;color:var(--ink-2)}
+.t-caps{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+
+/* ───── Buttons ───── */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:13px 22px;border-radius:999px;
+  font-weight:600;font-size:14.5px;
+  text-decoration:none;cursor:pointer;
+  transition:all .2s ease;
+  white-space:nowrap;
+  font-family:inherit;
+}
+.btn-lg{padding:16px 28px;font-size:15.5px}
+.btn-sm{padding:9px 16px;font-size:13px}
+.btn-primary{background:var(--blue);color:#fff;box-shadow:0 4px 14px rgba(45,104,162,.25)}
+.btn-primary:hover{background:var(--blue-d);transform:translateY(-1px);box-shadow:0 8px 22px rgba(45,104,162,.32)}
+.btn-coral{background:var(--coral);color:#fff;box-shadow:0 4px 14px rgba(217,105,75,.28)}
+.btn-coral:hover{background:var(--coral-d);transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn-ghost:hover{background:var(--surface);border-color:var(--ink-3)}
+.btn-soft{background:#fff;color:var(--ink);box-shadow:var(--sh-sm)}
+.btn-soft:hover{box-shadow:var(--sh-md);transform:translateY(-1px)}
+.btn-link{color:var(--blue);font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:6px;padding:8px 0}
+.btn-link:hover{gap:10px}
+
+/* ───── Pill / Chip ───── */
+.pill{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:999px;font-size:12px;font-weight:600}
+.pill-cream{background:var(--cream);color:var(--coral-d);border:1px solid var(--peach)}
+.pill-mint{background:var(--green-l);color:var(--green-d)}
+.pill-blue{background:var(--blue-l);color:var(--blue)}
+.pill-dot::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor}
+
+/* ───── NAVBAR ───── */
+.nav{
+  position:sticky;top:0;z-index:50;
+  background:rgba(251,246,238,.86);
+  backdrop-filter:saturate(180%) blur(14px);
+  -webkit-backdrop-filter:saturate(180%) blur(14px);
+  border-bottom:1px solid rgba(231,221,208,.6);
+}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px;gap:24px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand-mark{width:42px;height:42px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.brand-mark img{width:100%;height:100%;object-fit:contain}
+.brand-word{font-family:'Fredoka',sans-serif;font-weight:600;font-size:22px;letter-spacing:-.005em;line-height:1}
+.brand-word .mi{color:var(--green-d)}
+.brand-word .pet{color:var(--coral);font-weight:700}
+.brand-word .family{color:var(--green-d)}
+.brand-tag{font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3);font-weight:600;margin-top:3px}
+.nav-links{display:flex;gap:6px;align-items:center}
+.nav-link{
+  padding:8px 14px;font-size:14px;color:var(--ink-2);
+  text-decoration:none;border-radius:999px;font-weight:500;transition:all .15s;
+}
+.nav-link:hover{background:var(--surface-2);color:var(--ink)}
+.nav-ctas{display:flex;gap:8px;align-items:center}
+.nav-burger{display:none;flex-direction:column;gap:4px;padding:8px}
+.nav-burger span{display:block;width:22px;height:2px;background:var(--ink);border-radius:2px;transition:.2s}
+.nav-mobile{display:none;flex-direction:column;padding:8px 28px 20px;gap:4px;background:var(--paper);border-bottom:1px solid var(--line)}
+.nav-mobile.open{display:flex}
+.nav-mobile .nav-link{padding:12px 0;border-bottom:1px solid var(--line-2)}
+
+/* ───── HERO ───── */
+.hero{
+  position:relative;
+  padding:80px 0 100px;
+  overflow:hidden;
+  background:
+    radial-gradient(ellipse 800px 500px at 80% 0%, rgba(255,217,184,.45) 0%, transparent 60%),
+    radial-gradient(ellipse 700px 600px at 0% 100%, rgba(163,225,205,.35) 0%, transparent 55%),
+    var(--paper);
+}
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.05fr 1fr;
+  gap:56px;
+  align-items:center;
+}
+.hero-eyebrow{margin-bottom:22px}
+.hero-headline{margin-bottom:22px}
+.hero-headline .underline{
+  position:relative;display:inline;color:var(--coral-d);background-image:linear-gradient(180deg,transparent 62%,var(--peach) 62%,var(--peach) 92%,transparent 92%);background-size:100% 100%;background-repeat:no-repeat;padding:0 4px;
+}
+.hero-sub{font-size:clamp(16px,1.4vw,19px);color:var(--ink-2);max-width:520px;margin-bottom:32px;line-height:1.6}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:36px}
+.hero-trust{display:flex;gap:24px;flex-wrap:wrap;align-items:center}
+.hero-trust-item{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink-2);font-weight:500}
+.hero-trust-item .ic{
+  width:20px;height:20px;border-radius:50%;background:var(--green-l);
+  display:flex;align-items:center;justify-content:center;color:var(--green-d);font-weight:700;font-size:11px;
+}
+
+/* Hero visual: layered cards (petshop dashboard + petowner phone) */
+.hero-visual{position:relative;height:560px}
+.hero-card{
+  position:absolute;background:#fff;border-radius:var(--r-xl);
+  box-shadow:var(--sh-lg);
+  border:1px solid rgba(231,221,208,.6);
+  overflow:hidden;
+}
+
+/* Petshop dashboard card (back) */
+.hv-shop{
+  top:0;left:20px;width:78%;
+  padding:20px;
+  transform:rotate(-1.5deg);
+}
+.hv-shop-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.hv-shop-title{font-family:'Fredoka',sans-serif;font-weight:600;font-size:15px}
+.hv-shop-sub{font-size:11px;color:var(--ink-3);font-weight:500}
+.hv-stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.hv-stat{background:var(--paper);border-radius:10px;padding:10px 12px;border:1px solid var(--line-2)}
+.hv-stat-val{font-family:'Fredoka',sans-serif;font-weight:700;font-size:20px;line-height:1;color:var(--blue)}
+.hv-stat-val.green{color:var(--green-d)}
+.hv-stat-val.coral{color:var(--coral-d)}
+.hv-stat-lbl{font-size:9.5px;color:var(--ink-3);font-weight:600;letter-spacing:.04em;margin-top:3px;text-transform:uppercase}
+.hv-agenda-title{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:8px}
+.hv-appt{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:10px;margin-bottom:6px;font-size:12px}
+.hv-appt:nth-child(2){background:var(--coral-l)}
+.hv-appt:nth-child(3){background:var(--green-l)}
+.hv-appt:nth-child(4){background:var(--blue-l)}
+.hv-time{font-family:'Fredoka',sans-serif;font-weight:600;font-size:13px;min-width:42px}
+.hv-pet{flex:1;font-weight:600;font-size:12px}
+.hv-pet small{display:block;font-weight:400;color:var(--ink-2);font-size:10.5px;font-family:'Plus Jakarta Sans',sans-serif}
+.hv-tag{font-size:9.5px;font-weight:700;padding:3px 8px;border-radius:999px;background:#fff;color:var(--ink-2)}
+
+/* Petowner phone card (front) */
+.hv-phone{
+  bottom:0;right:0;width:240px;
+  padding:0;background:#1A2333;
+  border-radius:34px;
+  border:7px solid #1A2333;
+  transform:rotate(4deg);
+  box-shadow:0 30px 60px -15px rgba(40,28,15,.35),0 10px 20px rgba(40,28,15,.1);
+}
+.hv-phone-screen{background:var(--paper);border-radius:24px;overflow:hidden;height:420px;display:flex;flex-direction:column}
+.hv-phone-status{display:flex;justify-content:space-between;align-items:center;padding:8px 16px 0;font-size:10px;font-weight:700;color:var(--ink)}
+.hv-phone-hero{
+  background:linear-gradient(135deg,var(--coral) 0%,var(--peach) 100%);
+  padding:14px 16px 18px;color:#fff;
+  margin:6px 10px 0;border-radius:18px;
+}
+.hv-phone-hi{font-size:10px;font-weight:600;opacity:.85;margin-bottom:2px}
+.hv-phone-name{font-family:'Fredoka',sans-serif;font-weight:700;font-size:18px;line-height:1.1}
+.hv-phone-pet{display:flex;align-items:center;gap:8px;margin-top:10px;background:rgba(255,255,255,.22);padding:6px 8px;border-radius:999px;width:fit-content;backdrop-filter:blur(6px)}
+.hv-pet-av{width:22px;height:22px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:12px}
+.hv-pet-name{font-size:11px;font-weight:600}
+.hv-phone-card{margin:10px;padding:12px;background:#fff;border-radius:14px;box-shadow:0 2px 8px rgba(40,28,15,.06)}
+.hv-phone-card-lbl{font-size:9.5px;font-weight:700;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+.hv-phone-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;font-size:11.5px}
+.hv-phone-row:last-child{margin-bottom:0}
+.hv-phone-ic{width:26px;height:26px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.hv-phone-text{flex:1}
+.hv-phone-text b{display:block;font-weight:600;font-size:11.5px;color:var(--ink)}
+.hv-phone-text span{font-size:10px;color:var(--ink-3)}
+.hv-phone-bnav{margin-top:auto;display:flex;justify-content:space-around;padding:10px 0 8px;border-top:1px solid var(--line-2);background:#fff}
+.hv-phone-bnav span{font-size:10px;color:var(--ink-3);font-weight:600}
+.hv-phone-bnav span.act{color:var(--coral-d)}
+
+/* Floating decorations */
+.hero-deco{position:absolute;font-family:'Fredoka',sans-serif;color:var(--ink-3);opacity:.18;font-size:14px;font-weight:600;letter-spacing:.05em}
+.hero-deco.d1{top:42px;right:6%;transform:rotate(8deg)}
+.hero-deco.d2{bottom:120px;left:6%;transform:rotate(-6deg)}
+
+/* ───── Section ───── */
+section{padding:72px 0;position:relative}
+.sec-head{text-align:center;max-width:680px;margin:0 auto 44px}
+.sec-head .eyebrow{margin-bottom:18px}
+.sec-head h2{margin-bottom:18px}
+.sec-head .lede{margin:0 auto}
+
+/* ───── PROBLEMA ───── */
+.problem{background:#fff;border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2)}
+.problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.problem-card{
+  background:#fff;border-radius:var(--r-lg);padding:32px 28px;
+  border:1px solid var(--line-2);
+  position:relative;
+  transition:.25s;
+}
+.problem-card:hover{transform:translateY(-3px);box-shadow:var(--sh-md)}
+.problem-num{
+  font-family:'Fredoka',sans-serif;font-weight:700;font-size:42px;line-height:1;
+  color:var(--coral);margin-bottom:14px;
+}
+.problem-card h3{font-size:18px;margin-bottom:10px;line-height:1.3}
+.problem-quote{
+  margin-top:18px;padding:14px 16px;
+  background:var(--coral-l);border-radius:10px;
+  font-size:13px;color:var(--coral-d);font-weight:500;line-height:1.5;
+  border-left:3px solid var(--coral);
+}
+
+/* ───── HOW IT WORKS ───── */
+.how{background:var(--green-xl)}
+.how-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;position:relative}
+.how-grid::before{
+  content:'';position:absolute;top:34px;left:12.5%;right:12.5%;height:2px;
+  background:repeating-linear-gradient(90deg,var(--blue-mid) 0 8px,transparent 8px 14px);
+  z-index:0;
+}
+.how-step{text-align:center;position:relative;z-index:1}
+.how-num{
+  width:68px;height:68px;border-radius:50%;
+  background:#fff;border:2px solid var(--blue);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Fredoka',sans-serif;font-weight:700;font-size:24px;
+  color:var(--blue);
+  margin:0 auto 18px;
+  box-shadow:0 0 0 8px var(--green-xl),var(--sh-sm);
+}
+.how-step:nth-child(2) .how-num{border-color:var(--green);color:var(--green-d)}
+.how-step:nth-child(3) .how-num{border-color:var(--coral);color:var(--coral-d)}
+.how-step:nth-child(4) .how-num{border-color:var(--blue-d);color:var(--blue-d);background:var(--blue);color:#fff}
+.how-step h4{font-family:'Fredoka',sans-serif;font-size:18px;margin-bottom:8px;font-weight:600}
+.how-step p{font-size:13.5px;color:var(--ink-2);line-height:1.55}
+
+/* ───── BENEFITS ───── */
+.benefits{background:#fff}
+.benefits-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-bottom:32px}
+.benefit{
+  background:#fff;border-radius:var(--r-lg);padding:36px;
+  border:1px solid var(--line-2);
+  display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:center;
+}
+.benefit-stat{
+  font-family:'Fredoka',sans-serif;font-weight:700;font-size:60px;line-height:1;
+  letter-spacing:-.04em;
+  background:linear-gradient(135deg,var(--blue) 0%,var(--green) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  white-space:nowrap;
+}
+.benefit-stat .unit{font-size:28px;color:var(--blue);font-weight:700;-webkit-text-fill-color:initial;display:inline;margin-left:2px;white-space:nowrap}
+.benefit-body h4{font-family:'Fredoka',sans-serif;font-size:20px;margin-bottom:6px}
+.benefit-body p{font-size:14px;color:var(--ink-2);line-height:1.55}
+.benefit-body .src{display:block;font-size:11px;color:var(--ink-3);margin-top:8px;font-weight:500;letter-spacing:.04em}
+.benefits-note{
+  text-align:center;font-size:13px;color:var(--ink-3);
+  background:#fff;padding:14px 24px;border-radius:999px;
+  display:inline-flex;align-items:center;gap:10px;margin:0 auto;
+  border:1px dashed var(--line);
+}
+.benefits-note::before{content:'※';color:var(--coral)}
+
+/* ───── FEATURES ───── */
+.features{background:var(--paper)}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.feature{
+  border-radius:var(--r-lg);padding:32px 28px;
+  background:#fff;border:1px solid var(--line-2);
+  transition:.25s;
+}
+.feature:hover{transform:translateY(-3px);box-shadow:var(--sh-md);border-color:var(--blue-mid)}
+.feature-icon{
+  width:54px;height:54px;border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:24px;margin-bottom:20px;
+}
+.feature-icon.b{background:var(--blue-l);color:var(--blue)}
+.feature-icon.g{background:var(--green-l);color:var(--green-d)}
+.feature-icon.c{background:var(--coral-l);color:var(--coral-d)}
+.feature h3{font-family:'Fredoka',sans-serif;font-size:21px;margin-bottom:10px;font-weight:600}
+.feature p{font-size:14px;color:var(--ink-2);line-height:1.6;margin-bottom:14px}
+.feature ul{list-style:none;display:flex;flex-direction:column;gap:6px}
+.feature li{font-size:13px;color:var(--ink-2);display:flex;align-items:flex-start;gap:8px;line-height:1.5}
+.feature li::before{content:'✓';color:var(--green-d);font-weight:800;flex-shrink:0;margin-top:0}
+
+/* ───── PETOWNER (20%) ───── */
+.petowner{
+  background:linear-gradient(135deg,#1F2A3A 0%,#0F1828 100%);
+  color:#fff;
+  position:relative;overflow:hidden;
+}
+.petowner::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(circle 600px at 20% 20%,rgba(107,180,133,.18),transparent 60%),
+    radial-gradient(circle 500px at 90% 90%,rgba(240,138,110,.16),transparent 60%);
+}
+.petowner .container{position:relative}
+.po-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.po-eyebrow{color:var(--peach)}
+.po-eyebrow::before{background:var(--peach)}
+.po-grid h2{color:#fff;margin-bottom:18px}
+.po-grid h2 em{font-style:normal;color:var(--mint)}
+.po-grid p{color:rgba(255,255,255,.7);font-size:16px;line-height:1.65;margin-bottom:24px}
+.po-features{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.po-feat{
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);
+  border-radius:14px;padding:18px;
+  backdrop-filter:blur(6px);
+}
+.po-feat .ic{font-size:22px;margin-bottom:8px}
+.po-feat h5{font-family:'Fredoka',sans-serif;font-size:15px;margin-bottom:4px;color:#fff;font-weight:600}
+.po-feat p{font-size:12.5px;color:rgba(255,255,255,.55);margin:0;line-height:1.5}
+
+/* PetOwner phone visual */
+.po-phone-wrap{display:flex;justify-content:center;perspective:1200px}
+.po-phone{
+  width:280px;background:#FBF6EE;border-radius:38px;border:8px solid #1A2333;
+  box-shadow:0 40px 80px -20px rgba(0,0,0,.5);
+  overflow:hidden;
+  transform:rotateY(-8deg) rotateX(2deg);
+}
+.po-phone-bar{background:#1A2333;height:18px}
+.po-phone-content{padding:14px}
+.po-phone-greeting{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.po-phone-av{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--coral),var(--peach));display:flex;align-items:center;justify-content:center;font-size:22px}
+.po-phone-greeting b{display:block;font-family:'Fredoka',sans-serif;font-size:15px;color:var(--ink)}
+.po-phone-greeting span{font-size:11px;color:var(--ink-3)}
+.po-card{background:#fff;border-radius:14px;padding:14px;margin-bottom:10px;box-shadow:0 1px 3px rgba(40,28,15,.05)}
+.po-card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.po-card-head b{font-family:'Fredoka',sans-serif;font-size:13px;color:var(--ink)}
+.po-card-head .pill{font-size:9.5px;padding:3px 8px}
+.po-pet-list{display:flex;gap:10px}
+.po-pet{
+  flex:1;background:var(--paper);border-radius:10px;padding:8px;text-align:center;
+  border:1.5px solid transparent;
+}
+.po-pet.sel{border-color:var(--coral);background:var(--coral-l)}
+.po-pet-emoji{font-size:24px;margin-bottom:2px}
+.po-pet-n{font-size:10px;font-weight:600;color:var(--ink)}
+.po-shop-card{display:flex;align-items:center;gap:10px;padding:10px;border-radius:10px;background:var(--paper);margin-bottom:6px;font-size:11px}
+.po-shop-ic{width:30px;height:30px;border-radius:8px;background:var(--green-l);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--green-d);flex-shrink:0}
+.po-shop-card b{display:block;font-size:11.5px;color:var(--ink);font-family:'Plus Jakarta Sans',sans-serif;font-weight:600}
+.po-shop-card span{color:var(--ink-3);font-size:10px}
+.po-shop-card .km{margin-left:auto;color:var(--coral-d);font-weight:700;font-size:10.5px}
+
+/* ───── PETMATCH ───── */
+.petmatch{background:var(--cream);position:relative;overflow:hidden}
+.petmatch::before{
+  content:'';position:absolute;top:-100px;right:-100px;width:400px;height:400px;
+  background:radial-gradient(circle,var(--peach) 0%,transparent 70%);opacity:.5;
+}
+.pm-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:64px;align-items:center;position:relative}
+.pm-side .eyebrow{color:var(--coral-d)}
+.pm-tagline{font-family:'Fredoka',sans-serif;font-style:italic;color:var(--coral-d);font-size:15px;margin-bottom:14px;font-weight:500}
+.pm-stack{position:relative;height:480px;display:flex;align-items:center;justify-content:center}
+.pm-card{
+  position:absolute;width:280px;height:380px;
+  background:#fff;border-radius:24px;
+  box-shadow:var(--sh-lg);
+  overflow:hidden;
+  border:1px solid var(--line-2);
+  transition:.4s cubic-bezier(.2,.7,.2,1);
+}
+.pm-card-1{transform:translateX(-60px) translateY(-12px) rotate(-8deg);z-index:1;opacity:.55}
+.pm-card-2{transform:translateX(60px) translateY(8px) rotate(7deg);z-index:1;opacity:.55}
+.pm-card-3{z-index:3}
+.pm-card-img{height:230px;display:flex;align-items:center;justify-content:center;font-size:120px;position:relative}
+.pm-card-1 .pm-card-img{background:linear-gradient(135deg,#FFD9B8,#F08A6E)}
+.pm-card-2 .pm-card-img{background:linear-gradient(135deg,#A3E1CD,#6BB485)}
+.pm-card-3 .pm-card-img{background:linear-gradient(135deg,#A6C5E5,#2D68A2)}
+.pm-card-body{padding:18px}
+.pm-card-name{font-family:'Fredoka',sans-serif;font-size:22px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:8px}
+.pm-card-name .age{font-family:'Plus Jakarta Sans',sans-serif;font-weight:500;font-size:16px;color:var(--ink-3)}
+.pm-card-meta{font-size:12.5px;color:var(--ink-2);margin-top:4px;margin-bottom:12px}
+.pm-card-tags{display:flex;flex-wrap:wrap;gap:6px}
+.pm-card-tag{font-size:10.5px;padding:4px 10px;border-radius:999px;background:var(--paper);color:var(--ink-2);font-weight:500}
+.pm-actions{position:absolute;bottom:-26px;left:50%;transform:translateX(-50%);display:flex;gap:14px;z-index:4}
+.pm-action{
+  width:54px;height:54px;border-radius:50%;background:#fff;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:var(--sh-md);font-size:22px;
+  cursor:pointer;transition:.2s;
+}
+.pm-action:hover{transform:scale(1.1)}
+.pm-action.no{color:#FF6B6B}
+.pm-action.yes{color:var(--green-d);background:var(--green-l)}
+.pm-action.super{color:var(--blue);background:var(--blue-l)}
+
+.pm-side h2 em{font-style:normal;background:linear-gradient(135deg,var(--coral) 0%,var(--coral-d) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.pm-points{margin-top:24px;display:flex;flex-direction:column;gap:14px}
+.pm-pt{display:flex;gap:14px;align-items:flex-start}
+.pm-pt-ic{width:36px;height:36px;border-radius:10px;background:var(--coral-l);color:var(--coral-d);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.pm-pt h5{font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;font-size:15px;margin-bottom:2px}
+.pm-pt p{font-size:13.5px;color:var(--ink-2);line-height:1.5;margin:0}
+
+/* ───── COMPARE ───── */
+.compare{background:#fff}
+.compare-table{
+  background:var(--green-xl);border-radius:var(--r-xl);padding:8px;
+  box-shadow:var(--sh-md);
+  overflow:hidden;
+}
+.compare-row{
+  display:grid;grid-template-columns:1.4fr 1fr 1fr;
+  align-items:center;padding:18px 24px;
+  border-radius:14px;
+  font-size:14px;
+}
+.compare-row.head{
+  font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink-3);
+  padding:12px 24px;
+}
+.compare-row.head .yes,.compare-row.head .no{color:var(--ink-3)}
+.compare-row + .compare-row:not(.head){background:#fff;margin-top:6px;border:1px solid var(--line-2)}
+.compare-row .yes,.compare-row .no{text-align:center;font-weight:600}
+.compare-row .yes{color:var(--green-d)}
+.compare-row .yes::before{content:'✓ ';color:var(--green-d);font-weight:800}
+.compare-row .no{color:var(--ink-3)}
+.compare-row .no::before{content:'— ';color:var(--ink-3)}
+.compare-row .feat{font-weight:500;color:var(--ink)}
+.compare-row.head span:first-child{color:var(--ink)}
+.compare-row.head .col-mp{color:var(--blue);font-weight:800}
+
+/* ───── PRICING ───── */
+.pricing{background:var(--paper)}
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:start}
+.price-card{
+  background:#fff;border-radius:var(--r-xl);padding:32px;
+  border:1.5px solid var(--line-2);
+  transition:.25s;
+  position:relative;
+}
+.price-card:hover{transform:translateY(-4px);box-shadow:var(--sh-md)}
+.price-card.featured{
+  border-color:var(--blue);
+  box-shadow:var(--sh-pop);
+  transform:scale(1.03);
+  background:linear-gradient(180deg,#fff 0%,var(--blue-l) 200%);
+}
+.price-card.featured:hover{transform:scale(1.03) translateY(-4px)}
+.price-flag{
+  position:absolute;top:-12px;left:50%;transform:translateX(-50%);
+  background:var(--coral);color:#fff;
+  padding:5px 14px;border-radius:999px;
+  font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+}
+.price-name{font-family:'Fredoka',sans-serif;font-size:18px;font-weight:600;margin-bottom:6px}
+.price-tag{font-size:13px;color:var(--ink-3);margin-bottom:18px;font-weight:500}
+.price-amt{display:flex;align-items:baseline;gap:6px;margin-bottom:6px}
+.price-amt .num{font-family:'Fredoka',sans-serif;font-size:52px;font-weight:700;line-height:1;color:var(--ink);letter-spacing:-.025em}
+.price-amt .per{font-size:14px;color:var(--ink-2);font-weight:500}
+.price-yr{font-size:12.5px;color:var(--green-d);font-weight:600;margin-bottom:24px}
+.price-card .btn{width:100%;margin-bottom:24px}
+.price-feats{display:flex;flex-direction:column;gap:12px;font-size:13.5px}
+.price-feat{display:flex;align-items:flex-start;gap:8px;color:var(--ink-2);line-height:1.5}
+.price-feat::before{content:'✓';color:var(--green-d);font-weight:800;flex-shrink:0;margin-top:1px}
+.price-feat.hi{color:var(--ink);font-weight:600}
+.price-feat.hi::before{color:var(--coral)}
+.price-foot{text-align:center;margin-top:32px;font-size:13.5px;color:var(--ink-2)}
+.price-foot a{color:var(--blue);font-weight:600;text-decoration:none}
+
+/* ───── FAQ ───── */
+.faq{background:#fff}
+.faq-list{max-width:780px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.faq-item{
+  background:#fff;border:1px solid var(--line-2);border-radius:var(--r-md);
+  overflow:hidden;transition:.2s;
+}
+.faq-item[open]{border-color:var(--blue-mid);box-shadow:var(--sh-sm)}
+.faq-q{
+  padding:20px 24px;cursor:pointer;
+  font-family:'Fredoka',sans-serif;font-weight:600;font-size:17px;
+  display:flex;justify-content:space-between;align-items:center;gap:16px;
+  list-style:none;
+  color:var(--ink);
+}
+.faq-q::-webkit-details-marker{display:none}
+.faq-q::after{
+  content:'+';font-family:'Plus Jakarta Sans',sans-serif;font-weight:300;
+  font-size:24px;color:var(--blue);transition:.2s;flex-shrink:0;
+}
+.faq-item[open] .faq-q::after{content:'−'}
+.faq-a{padding:0 24px 20px;font-size:14.5px;color:var(--ink-2);line-height:1.65}
+
+/* ───── FINAL CTA ───── */
+.final{
+  background:
+    radial-gradient(ellipse 700px 400px at 50% 0%, rgba(229,57,53,.08) 0%, transparent 60%),
+    var(--green-xl);
+  text-align:center;
+}
+.final-card{
+  background:#fff;border-radius:var(--r-2xl);
+  padding:64px 48px;
+  border:1px solid var(--line-2);
+  box-shadow:var(--sh-md);
+  max-width:780px;margin:0 auto;
+  position:relative;overflow:hidden;
+}
+.final-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:6px;
+  background:linear-gradient(90deg,var(--blue),var(--green),var(--coral));
+}
+.final-card .pill{margin-bottom:18px}
+.final-card h2{margin-bottom:14px}
+.final-card .lede{margin-bottom:32px;max-width:560px;margin-left:auto;margin-right:auto}
+.final-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.final-trust{margin-top:24px;font-size:12.5px;color:var(--ink-3)}
+
+/* ───── FOOTER ───── */
+footer{background:#1F2A3A;color:rgba(255,255,255,.6);padding:56px 0 28px}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:40px}
+.foot-brand{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.foot-brand .brand-mark{filter:brightness(0) invert(1);opacity:.9}
+.foot-brand .brand-word{color:#fff}
+.foot-brand .brand-word .mi{color:#fff}
+.foot-brand .brand-word .pet{color:var(--coral)}
+.foot-brand .brand-word .family{color:#fff}
+.foot-desc{font-size:13.5px;line-height:1.6;color:rgba(255,255,255,.45);max-width:300px}
+.foot-h{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.85);margin-bottom:14px}
+.foot-link{display:block;font-size:13.5px;color:rgba(255,255,255,.55);text-decoration:none;padding:5px 0;transition:color .15s}
+.foot-link:hover{color:#fff}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.08);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;font-size:12px;color:rgba(255,255,255,.4)}
+.foot-bottom a{color:rgba(255,255,255,.55);text-decoration:none;margin-left:18px}
+
+/* ───── Tweaks panel (built later) ───── */
+
+/* ───── Responsive ───── */
+@media(max-width:1000px){
+  .hero-grid{grid-template-columns:1fr;gap:40px}
+  .hero-visual{height:480px;max-width:520px;margin:0 auto;width:100%}
+  .problem-grid,.features-grid{grid-template-columns:1fr;gap:14px}
+  .how-grid{grid-template-columns:repeat(2,1fr);gap:32px 20px}
+  .how-grid::before{display:none}
+  .benefits-grid{grid-template-columns:1fr}
+  .po-grid,.pm-grid{grid-template-columns:1fr;gap:48px}
+  .po-features{grid-template-columns:1fr 1fr}
+  .pm-stack{height:440px}
+  .price-grid{grid-template-columns:1fr;max-width:420px;margin:0 auto}
+  .price-card.featured{transform:none}
+  .price-card.featured:hover{transform:translateY(-4px)}
+  .compare-row{grid-template-columns:1.6fr .8fr .8fr;padding:14px 16px;font-size:13px}
+  .nav-links{display:none}
+  .nav-burger{display:flex}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:32px}
+}
+@media(max-width:600px){
+  section{padding:52px 0}
+  .sec-head{margin-bottom:32px}
+  .hero{padding:56px 0 72px}
+  .hero-headline{font-size:38px}
+  .hero-trust{flex-direction:column;gap:10px;align-items:flex-start}
+  .hv-shop{width:88%;left:0}
+  .hv-phone{width:200px}
+  .how-grid{grid-template-columns:1fr}
+  .benefit{grid-template-columns:1fr;gap:18px;padding:24px;text-align:center}
+  .benefit-stat{font-size:48px}
+  .benefit-stat .unit{font-size:22px}
+  .po-features{grid-template-columns:1fr}
+  .compare-row{grid-template-columns:1.6fr .7fr .7fr;padding:12px;font-size:12px}
+  .compare-row.head{font-size:10.5px}
+  .final-card{padding:44px 24px}
+  .foot-grid{grid-template-columns:1fr;gap:24px}
+  .nav-ctas .btn:first-child{display:none}
+  .brand-tag{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════ NAVBAR ════════════════════════════ -->
+<nav class="nav" style="background-color: rgb(255, 255, 255)">
+  <div class="container">
+    <div class="nav-inner">
+      <a class="brand" href="#top">
+        <div class="brand-mark"><img src="assets/mipetfamily-logo.png" alt="miPETfamily"></div>
+        <div>
+          <div class="brand-word"><span class="mi">mi</span><span class="pet">PET</span><span class="family">family</span></div>
+          <div class="brand-tag">tu petshop, su familia</div>
+        </div>
+      </a>
+      <div class="nav-links">
+        <a class="nav-link" href="#problema" style="color: rgb(96, 178, 112)">El problema</a>
+        <a class="nav-link" href="https://petfamily-sigma.vercel.app/registro" style="color: rgb(96, 178, 112)">Cómo funciona</a>
+        <a class="nav-link" href="#beneficios" style="color: rgb(96, 178, 112)">Beneficios</a>
+        <a class="nav-link" href="#petmatch" style="color: rgb(96, 178, 112)">PetMatch</a>
+        <a class="nav-link" href="#precios">Precios</a>
+      </div>
+      <div class="nav-ctas">
+        <a class="btn btn-ghost btn-sm" href="#" style="color: rgb(96, 178, 112)">Iniciar sesión</a>
+        <a class="btn btn-primary btn-sm" href="https://petfamily-sigma.vercel.app/registro">Conoce más →</a>
+      </div>
+      <button class="nav-burger" id="burger" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="nav-mobile" id="mobile-menu">
+    <a class="nav-link" href="#problema">El problema</a>
+    <a class="nav-link" href="https://petfamily-sigma.vercel.app/registro">Cómo funciona</a>
+    <a class="nav-link" href="#beneficios">Beneficios</a>
+    <a class="nav-link" href="#petmatch"><span style="color:#60b270">PetMatch</span></a>
+    <a class="nav-link" href="#precios"><span style="color:#60b270">Precios</span></a>
+  </div>
+</nav>
+
+<!-- ════════════════════════════ HERO ════════════════════════════ -->
+<section class="hero" id="top">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-left">
+        <div class="hero-eyebrow"><span class="eyebrow" style="font-size: 14px; font-weight: 600">Plataforma para petshops · Lanzamiento Panamá 2026</span></div>
+        <h1 class="hero-headline h-display" style="text-align: center; font-weight: 600; font-size: 70px">
+          Tu petshop ya es bueno.<br>
+          Te falta <span class="underline">la familia</span> que vuelve.
+        </h1>
+        <p class="hero-sub" style="text-align: justify; font-weight: 400">MiPetFamily conecta tu petshop con dueños de mascotas que ya te conocen, agenda de grooming y veterinaria, compras recurrentes y un historial central que el dueño quiere mantener al día. Tú no persigues clientes; ellos te buscan.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary btn-lg" href="https://petfamily-sigma.vercel.app/registro">Conoce cómo funciona</a>
+          <a class="btn btn-ghost btn-lg" href="#beneficios" style="color: rgb(96, 178, 112); border-color: rgb(96, 178, 112)">Ver beneficios para tu petshop</a>
+        </div>
+        <div class="hero-trust">
+          <span class="hero-trust-item"><span class="ic">✓</span> Sin compromiso, primero conversamos</span>
+          <span class="hero-trust-item">✓
+Desarrollo hecho en Panamá</span>
+          <span class="hero-trust-item" style="text-align: center; gap: 10px"><span class="ic" style="gap: 80px">✓</span> 5 min para empezar</span>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-deco d1">— para petshops</div>
+        <div class="hero-deco d2">— para familias</div>
+
+        <!-- Petshop dashboard card (back layer) -->
+        <div class="hero-card hv-shop">
+          <div class="hv-shop-head">
+            <div>
+              <div class="hv-shop-title">Petshop Las Mercedes</div>
+              <div class="hv-shop-sub">Hoy · martes 6 de mayo</div>
+            </div>
+            <span class="pill pill-mint pill-dot">Operando</span>
+          </div>
+          <div class="hv-stat-row">
+            <div class="hv-stat"><div class="hv-stat-val">14</div><div class="hv-stat-lbl">Citas hoy</div></div>
+            <div class="hv-stat"><div class="hv-stat-val green">96%</div><div class="hv-stat-lbl">Ocupación</div></div>
+            <div class="hv-stat"><div class="hv-stat-val coral">$842</div><div class="hv-stat-lbl">Recurrente</div></div>
+          </div>
+          <div class="hv-agenda-title">Próximas citas</div>
+          <div class="hv-appt"><span class="hv-time">10:30</span><span class="hv-pet">Coco<small>Grooming · Caniche</small></span><span class="hv-tag" style="color:var(--coral-d)">Habitual</span></div>
+          <div class="hv-appt"><span class="hv-time">11:15</span><span class="hv-pet">Luna<small>Veterinaria · Vacuna</small></span><span class="hv-tag" style="color:var(--green-d)">Confirmada</span></div>
+          <div class="hv-appt"><span class="hv-time">12:00</span><span class="hv-pet">Toby<small>Grooming + baño</small></span><span class="hv-tag" style="color:var(--blue)">Nuevo</span></div>
+        </div>
+
+        <!-- PetOwner phone card (front layer) -->
+        <div class="hero-card hv-phone">
+          <div class="hv-phone-screen">
+            <div class="hv-phone-status"><span>9:41</span><span>●●●● ⌖</span></div>
+            <div class="hv-phone-hero">
+              <div class="hv-phone-hi">Hola María 👋</div>
+              <div class="hv-phone-name">Coco está listo</div>
+              <div class="hv-phone-pet">
+                <div class="hv-pet-av">🐩</div>
+                <div class="hv-pet-name">Coco · Caniche · 4 años</div>
+              </div>
+            </div>
+            <div class="hv-phone-card">
+              <div class="hv-phone-card-lbl">Próxima cita</div>
+              <div class="hv-phone-row">
+                <div class="hv-phone-ic" style="background:var(--coral-l)">✂</div>
+                <div class="hv-phone-text"><b>Grooming en Las Mercedes</b><span>Mañana, 10:30 am</span></div>
+              </div>
+              <div class="hv-phone-row">
+                <div class="hv-phone-ic" style="background:var(--green-l)">📦</div>
+                <div class="hv-phone-text"><b>Comida llega el viernes</b><span>Royal Canin · pago automático</span></div>
+              </div>
+            </div>
+            <div class="hv-phone-bnav">
+              <span class="act">Inicio</span>
+              <span>Agenda</span>
+              <span>Productos</span>
+              <span>PetMatch</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════ PROBLEMA ════════════════════════════ -->
+<section class="problem" id="problema">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow" style="font-size: 14px; font-weight: 600">Lo que ya sabes</span>
+      <h2 class="h-1">Tu petshop está lleno los sábados.<br>De lunes a jueves, no tanto.</h2>
+      <p class="lede">El problema no es que falten clientes, es que los que ya tienes no vuelven con la frecuencia que podrían. Y entre cita y cita, el contacto se pierde.</p>
+    </div>
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="problem-num">01</div>
+        <h3 class="serif">El cliente compra y desaparece</h3>
+        <p class="body-sm">Lo atendiste bien. Se llevó la comida del mes. Y no volverá hasta que se acuerde o hasta que la competencia le mande una promo. Sin recurrencia, todo el trabajo de captarlo se evapora.</p>
+        <div class="problem-quote">Sin recurrencia, cada mes empieza con la caja en cero.</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-num">02</div>
+        <h3 class="serif">La agenda manual cuesta más de lo que parece</h3>
+        <p class="body-sm">WhatsApp, libreta, llamadas que se pierden, citas que se duplican. Una hora libre en grooming es una hora que no se factura y nadie la nota hasta que se acumulan veinte al mes.</p>
+        <div class="problem-quote">Los huecos en la agenda son ingresos que ya no recuperas.</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-num">03</div>
+        <h3 class="serif">No tienes el historial de la mascota</h3>
+        <p class="body-sm">¿Qué shampoo usaste con Coco? ¿Cuándo fue la última desparasitación de Luna? Si la información vive solo en la cabeza del groomer o en una libreta, ya perdiste un activo del negocio.</p>
+        <div class="problem-quote">Lo que no está registrado, no se puede mejorar.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════ CÓMO FUNCIONA ════════════════════════════ -->
+<section class="how" id="como">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow blue" style="font-size: 14px; font-weight: 600">Así funciona</span>
+      <h2 class="h-1">Cuatro pasos. Ningún drama.</h2>
+      <p class="lede">No reemplaza tu forma de trabajar, la organiza. Tú sigues siendo el petshop; nosotros somos el puente con tus dueños de mascotas.</p>
+    </div>
+    <div class="how-grid">
+      <div class="how-step">
+        <div class="how-num">1</div>
+        <h4>Activamos tu petshop</h4>
+        <p>Configuramos servicios, horarios y precios contigo. Migramos tus clientes actuales si los tienes en hoja de cálculo o en la cabeza.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-num">2</div>
+        <h4>Tus clientes reciben la app</h4>
+        <p>Les llega la invitación por WhatsApp. Crean su perfil, registran a sus mascotas y eligen tu petshop como favorito.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-num">3</div>
+        <h4>Agendan y compran solos</h4>
+        <p>Reservan grooming o veterinaria, ponen la comida en autopiloto, suben fotos, ven historial. Tú ves todo en tu panel.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-num">4</div>
+        <h4>El negocio fluye</h4>
+        <p>Menos llamadas, menos huecos, más recurrencia. Reportes en tiempo real para que cada decisión esté basada en datos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════ BENEFICIOS ════════════════════════════ -->
+<section class="benefits" id="beneficios">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow green" style="font-size: 14px; font-weight: 600">Por qué importa</span>
+      <h2 class="h-1">Tres cifras que cambian tu mes.</h2>
+      <p class="lede">Estimaciones realistas para un petshop urbano de 60–150 clientes activos. Tu mejora real depende de cuánto exprimas la plataforma pero el piso es razonable.</p>
+    </div>
+    <div class="benefits-grid">
+      <div class="benefit">
+        <div class="benefit-stat" style="font-weight: 600">+22<span class="unit">%</span></div>
+        <div class="benefit-body">
+          <h4 class="serif">Más facturación mensual</h4>
+          <p>Recurrencia activa de productos + cross-sell de servicios + recordatorios automáticos = el mismo cliente compra más, sin esfuerzo extra del lado tuyo.</p>
+          <span class="src">※ Proyección — basada en escenarios de adopción media</span>
+        </div>
+      </div>
+      <div class="benefit">
+        <div class="benefit-stat" style="font-weight: 600">−65<span class="unit">%</span></div>
+        <div class="benefit-body">
+          <h4 class="serif">Menos huecos en la agenda</h4>
+          <p>El propio dueño llena los espacios libres desde la app: ve qué horarios hay y reserva. Tu groomer factura más horas y tú dejas de gestionar WhatsApp.</p>
+          <span class="src">※ Proyección — vs. agenda manual / WhatsApp</span>
+        </div>
+      </div>
+      <div class="benefit">
+        <div class="benefit-stat">3×</div>
+        <div class="benefit-body">
+          <h4 class="serif">Mayor fidelización</h4>
+          <p>Cuando el dueño tiene el historial de su mascota, su comida programada y su próxima cita en una sola app, tu petshop deja de ser opción y pasa a ser hogar.</p>
+          <span class="src">※ Proyección — clientes con &gt;3 servicios activos vs. clientes ocasionales</span>
+        </div>
+      </div>
+      <div class="benefit">
+        <div class="benefit-stat" style="font-weight: 600">−4<span class="unit">h/sem</span></div>
+        <div class="benefit-body">
+          <h4 class="serif">Menos trabajo administrativo</h4>
+          <p>Adiós a la libreta, los recordatorios manuales y los duplicados de citas. Cuatro horas a la semana que vuelven a ti para atender mejor o, simplemente, descansar.</p>
+          <span class="src">※ Proyección — petshop con 1–2 personas en operación</span>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center">
+      <span class="benefits-note">Las cifras son proyecciones, no promesas. Hablamos contigo para ajustarlas a tu negocio.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════ FEATURES ════════════════════════════ -->
+<section class="features">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow" style="font-size: 14px; font-weight: 600">La plataforma, en concreto</span>
+      <h2 class="h-1">Tres herramientas. 
+Una sola pantalla.</h2>
+      <p class="lede">Todo lo que tu petshop necesita para operar el día a día, sin saltar entre apps, sin libretas, sin perder información.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature">
+        <div class="feature-icon b">📅</div>
+        <h3>Agenda inteligente</h3>
+        <p>Grooming, veterinaria, baño, paseos. Cada servicio con su duración, su staff y su precio. El dueño reserva solo, tú confirmas con un toque.</p>
+        <ul>
+          <li>Slots automáticos según disponibilidad real</li>
+          <li>Recordatorios y confirmaciones por la app</li>
+          <li>Reprogramación sin llamadas</li>
+          <li>Vista de día / semana / staff</li>
+        </ul>
+      </div>
+      <div class="feature">
+        <div class="feature-icon g">🔄</div>
+        <h3>Compras recurrentes</h3>
+        <p>El dueño activa una vez la comida, antiparasitarios o snacks. Llega cada mes en automático. Cobras antes, despachas con anticipación.</p>
+        <ul>
+          <li>Suscripciones flexibles (semanal, mensual, custom)</li>
+          <li>Pago automático al inventario reservado</li>
+          <li>Alertas de stock antes de la entrega</li>
+          <li>Cross-sell sugerido en cada renovación</li>
+        </ul>
+      </div>
+      <div class="feature">
+        <div class="feature-icon c">📋</div>
+        <h3>Historial centralizado</h3>
+        <p>Todo lo que pasa con cada mascota — vacunas, alergias, productos preferidos, fotos de grooming vive en un solo lugar que tú y el dueño comparten.</p>
+        <ul>
+          <li>Ficha clínica + de servicios por mascota</li>
+          <li>Documentos: vacunas, recetas, exámenes</li>
+          <li>Galería de antes/después por sesión</li>
+          <li>Notas internas privadas para tu equipo</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════ PETOWNER (20%) ════════════════════════════ -->
+<section class="petowner">
+  <div class="container">
+    <div class="po-grid">
+      <div>
+        <span class="eyebrow po-eyebrow" style="font-size: 14px; font-weight: 600">El otro lado de la plataforma</span>
+        <h2 class="h-1" style="margin-top:18px">Para que tu cliente vuelva,<br>su <em>familia mascota</em> tiene que querer la app.</h2>
+        <p>Por eso construimos MiPetFamily también pensando en el dueño. Si la app no le sirve a él, no la usa y todo el sistema se cae. Una experiencia que el dueño abre por gusto, no por obligación.</p>
+        <div class="po-features">
+          <div class="po-feat">
+            <div class="ic">📅</div>
+            <h5>Agendar sin llamar</h5>
+            <p>Elige horario libre y listo. La cita se confirma en segundos.</p>
+          </div>
+          <div class="po-feat">
+            <div class="ic">📦</div>
+            <h5>Comida en autopiloto</h5>
+            <p>La comida del mes llega sola. Cero salidas de emergencia.</p>
+          </div>
+          <div class="po-feat">
+            <div class="ic">📋</div>
+            <h5>Historial siempre a mano</h5>
+            <p>Vacunas, recetas, fotos. Compartibles con cualquier vet.</p>
+          </div>
+          <div class="po-feat">
+            <div class="ic">💞</div>
+            <h5>PetMatch</h5>
+            <p>Encuentra amigos para su mascota. La parte divertida.</p>
+          </div>
+        </div>
+      </div>
+      <div class="po-phone-wrap">
+        <div class="po-phone">
+          <div class="po-phone-bar"></div>
+          <div class="po-phone-content">
+            <div class="po-phone-greeting">
+              <div class="po-phone-av">🐾</div>
+              <div>
+                <b>¡Hola, María!</b>
+                <span>Tienes 2 mascotas en tu familia</span>
+              </div>
+            </div>
+            <div class="po-card">
+              <div class="po-card-head"><b>Mis mascotas</b><span class="pill pill-cream">2 perfiles</span></div>
+              <div class="po-pet-list">
+                <div class="po-pet sel">
+                  <div class="po-pet-emoji">🐩</div>
+                  <div class="po-pet-n">Coco</div>
+                </div>
+                <div class="po-pet">
+                  <div class="po-pet-emoji">🐱</div>
+                  <div class="po-pet-n">Mishi</div>
+                </div>
+                <div class="po-pet" style="background:transparent;border:1.5px dashed var(--line)">
+                  <div class="po-pet-emoji" style="opacity:.4">＋</div>
+                  <div class="po-pet-n" style="color:var(--ink-3)">Añadir</div>
+                </div>
+              </div>
+            </div>
+            <div class="po-card">
+              <div class="po-card-head"><b>Petshops cerca</b><span class="pill pill-blue">3</span></div>
+              <div class="po-shop-card">
+                <div class="po-shop-ic">🏠</div>
+                <div><b>Las Mercedes</b><span>Grooming · Vet · Tienda</span></div>
+                <span class="km">0.6 km</span>
+              </div>
+              <div class="po-shop-card">
+                <div class="po-shop-ic" style="background:var(--coral-l);color:var(--coral-d)">✂</div>
+                <div><b>Pawsome Salon</b><span>Solo grooming</span></div>
+                <span class="km">1.2 km</span>
+              </div>
+              <div class="po-shop-card">
+                <div class="po-shop-ic" style="background:var(--blue-l);color:var(--blue)">🏥</div>
+                <div><b>Vet Costa del Este</b><span>Clínica veterinaria</span></div>
+                <span class="km">2.8 km</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════ PETMATCH ════════════════════════════ -->
+<section class="petmatch" id="petmatch">
+  <div class="container">
+    <div class="pm-grid">
+      <div class="pm-stack-wrap">
+        <div class="pm-stack">
+          <div class="pm-card pm-card-1">
+            <div class="pm-card-img">🐶</div>
+            <div class="pm-card-body">
+              <div class="pm-card-name">Toby <span class="age">· 3</span></div>
+              <div class="pm-card-meta">Golden · Costa del Este</div>
+              <div class="pm-card-tags">
+                <span class="pm-card-tag">Juguetón</span>
+                <span class="pm-card-tag">Sociable</span>
+              </div>
+            </div>
+          </div>
+          <div class="pm-card pm-card-2">
+            <div class="pm-card-img">🐱</div>
+            <div class="pm-card-body">
+              <div class="pm-card-name">Mishi <span class="age">· 2</span></div>
+              <div class="pm-card-meta">Siamés · San Francisco</div>
+              <div class="pm-card-tags">
+                <span class="pm-card-tag">Tranquila</span>
+                <span class="pm-card-tag">Casera</span>
+              </div>
+            </div>
+          </div>
+          <div class="pm-card pm-card-3">
+            <div class="pm-card-img">🐩</div>
+            <div class="pm-card-body">
+              <div class="pm-card-name">Coco <span class="age">· 4</span></div>
+              <div class="pm-card-meta">Caniche · Las Mercedes</div>
+              <div class="pm-card-tags">
+                <span class="pm-card-tag">Playero</span>
+                <span class="pm-card-tag">Le encantan los parques</span>
+                <span class="pm-card-tag">Vacunas al día</span>
+              </div>
+            </div>
+            <div class="pm-actions">
+              <div class="pm-action no" title="Pasar">✕</div>
+              <div class="pm-action super" title="Súper match">★</div>
+              <div class="pm-action yes" title="Match">♡</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pm-side">
+        <span class="eyebrow" style="font-size: 14px; font-weight: 600">Función estrella · solo en MiPetFamily</span>
+        <h2 class="h-1" style="margin-top:18px">PetMatch.<br>Como Tinder, pero para <em>mascotas</em>.</h2>
+        <p class="pm-tagline">"Coco busca un amigo perro al que también le gusten los charcos. Hace match con Toby. Las dueñas se conocen en el parque del sábado."</p>
+        <p class="lede">No es un gimmick. Es el motor viral que trae nuevos dueños a tu petshop sin que pagues por publicidad. Cada match es una historia que se cuenta y tu petshop es donde empezó.</p>
+        <div class="pm-points">
+          <div class="pm-pt">
+            <div class="pm-pt-ic">🎯</div>
+            <div>
+              <h5>Tráfico orgánico hacia tu petshop</h5>
+              <p>Cada match conecta a dos dueños que comparten zona y estilo. Tu petshop aparece como punto en común y como referencia para el dueño nuevo.</p>
+            </div>
+          </div>
+          <div class="pm-pt">
+            <div class="pm-pt-ic">🔁</div>
+            <div>
+              <h5>Razón para abrir la app cada día</h5>
+              <p>Si la app es solo agendar, se abre 1 vez al mes. Con PetMatch, se abre todos los días y tu marca está ahí, presente, sin pagar.</p>
+            </div>
+          </div>
+          <div class="pm-pt">
+            <div class="pm-pt-ic">🌱</div>
+            <div>
+              <h5>Comunidad alrededor de tu petshop</h5>
+              <p>Eventos por barrio, "pet dates" en tu local los sábados, mascotas del mes. Pasas de ser proveedor a ser punto de encuentro.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════ COMPARACIÓN ════════════════════════════ -->
+<section class="compare">
+  <div class="container-tight">
+    <div class="sec-head">
+      <span class="eyebrow blue" style="font-size: 14px; font-weight: 600">Sin MiPetFamily vs. con MiPetFamily</span>
+      <h2 class="h-1">El mismo petshop. Otro nivel de operación.</h2>
+    </div>
+    <div class="compare-table">
+      <div class="compare-row head">
+        <span>Cómo lo manejas hoy</span>
+        <span class="no">Sin plataforma</span>
+        <span class="col-mp">Con MiPetFamily</span>
+      </div>
+      <div class="compare-row">
+        <span class="feat">Agenda de grooming y vet</span>
+        <span class="no">WhatsApp y libreta</span>
+        <span class="yes">Reserva propia del dueño</span>
+      </div>
+      <div class="compare-row">
+        <span class="feat">Recordatorio de citas</span>
+        <span class="no">Manual, uno por uno</span>
+        <span class="yes">Automático en la app</span>
+      </div>
+      <div class="compare-row">
+        <span class="feat">Recurrencia de productos</span>
+        <span class="no">Esperas que vuelva</span>
+        <span class="yes">Suscripción activa</span>
+      </div>
+      <div class="compare-row">
+        <span class="feat">Historial de la mascota</span>
+        <span class="no">Memoria + libreta</span>
+        <span class="yes">Centralizado por mascota</span>
+      </div>
+      <div class="compare-row">
+        <span class="feat">Reportes de tu negocio</span>
+        <span class="no">Estimación a ojo</span>
+        <span class="yes">Datos en tiempo real</span>
+      </div>
+      <div class="compare-row">
+        <span class="feat">Captación de nuevos dueños</span>
+        <span class="no">Boca a boca + redes</span>
+        <span class="yes">PetMatch + comunidad</span>
+      </div>
+      <div class="compare-row">
+        <span class="feat">Tiempo en admin / semana</span>
+        <span class="no">~ 6–8 horas</span>
+        <span class="yes">~ 2–3 horas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════ PRICING ════════════════════════════ -->
+<section class="pricing" id="precios">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow green" style="font-size: 14px; font-weight: 600">Precios para petshops</span>
+      <h2 class="h-1">Elige el plan que pesa por tu tamaño.</h2>
+      <p class="lede">Sin contratos largos. Cancelas cuando quieras. Los dueños usan la app sin costo, siempre.</p>
+    </div>
+    <div class="price-grid">
+      <div class="price-card">
+        <div class="price-name">Esencial</div>
+        <div class="price-tag">Petshop pequeño · hasta 60 mascotas activas</div>
+        <div class="price-amt"><span class="num">$100</span><span class="per">/mes</span></div>
+        <div class="price-yr">o $1.000/año — ahorras $200</div>
+        <a class="btn btn-ghost" href="#">Hablemos primero →</a>
+        <div class="price-feats">
+          <div class="price-feat">Agenda completa de grooming y vet</div>
+          <div class="price-feat">Hasta 60 mascotas activas</div>
+          <div class="price-feat">App del dueño incluida</div>
+          <div class="price-feat">Historial centralizado</div>
+          <div class="price-feat">Recordatorios automáticos</div>
+          <div class="price-feat">Soporte por email</div>
+        </div>
+      </div>
+
+      <div class="price-card featured">
+        <div class="price-flag">Más elegido</div>
+        <div class="price-name">Pro</div>
+        <div class="price-tag">Petshop urbano · hasta 200 mascotas activas</div>
+        <div class="price-amt"><span class="num">$200</span><span class="per">/mes</span></div>
+        <div class="price-yr">o $2.000/año — ahorras $400</div>
+        <a class="btn btn-primary" href="#">Hablemos primero →</a>
+        <div class="price-feats">
+          <div class="price-feat hi">Todo lo del plan Esencial</div>
+          <div class="price-feat hi">Compras recurrentes activas</div>
+          <div class="price-feat hi">Reportes y analítica del negocio</div>
+          <div class="price-feat hi">PetMatch para tus clientes</div>
+          <div class="price-feat">Hasta 200 mascotas activas</div>
+          <div class="price-feat">Multi-staff (groomers + vet)</div>
+          <div class="price-feat">Soporte prioritario por WhatsApp</div>
+        </div>
+      </div>
+
+      <div class="price-card">
+        <div class="price-name">Multi-tienda</div>
+        <div class="price-tag">Cadena · varios locales o &gt;200 mascotas</div>
+        <div class="price-amt"><span class="num">A medida</span></div>
+        <div class="price-yr">Conversemos según tu operación</div>
+        <a class="btn btn-ghost" href="#">Coordinar reunión →</a>
+        <div class="price-feats">
+          <div class="price-feat">Todo lo del plan Pro</div>
+          <div class="price-feat">Mascotas y staff ilimitados</div>
+          <div class="price-feat">Vista consolidada multi-local</div>
+          <div class="price-feat">Migración asistida 1-a-1</div>
+          <div class="price-feat">Account manager dedicado</div>
+          <div class="price-feat">SLA con tiempos de respuesta</div>
+        </div>
+      </div>
+    </div>
+    <p class="price-foot">¿Aún no estás seguro? <a href="https://petfamily-sigma.vercel.app/registro">Empieza por entender cómo funciona →</a></p>
+  </div>
+</section>
+
+<!-- ════════════════════════════ FAQ ════════════════════════════ -->
+<section class="faq">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow" style="font-size: 14px; font-weight: 600">Preguntas frecuentes</span>
+      <h2 class="h-1">Lo que más nos preguntan los petshops.</h2>
+    </div>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary class="faq-q">Si ya uso WhatsApp con mis clientes, ¿no es perder tiempo cambiar?</summary>
+        <div class="faq-a">No reemplazamos WhatsApp, lo descongestionamos. Las citas, recordatorios y compras recurrentes se mueven a la app. WhatsApp queda libre para lo importante: dudas reales, fotos, cariño con tus clientes. Configuramos contigo el cambio en una sesión de una hora.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">¿Mis clientes actuales tienen que registrarse en otra app más?</summary>
+        <div class="faq-a">Sí, pero el alta es por WhatsApp en menos de 2 minutos. Tú envías la invitación; el dueño hace tap, entra con su número, agrega a sus mascotas y listo. La app es gratis para ellos y rápido entienden el valor: comida en autopiloto, agenda sin llamar, historial ordenado.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">¿Qué pasa con la información de mis mascotas si dejo de usar la plataforma?</summary>
+        <div class="faq-a">Es tuya. Te exportamos toda la base de clientes, mascotas, historial, citas en formato estándar (CSV/PDF) cuando lo pidas, sin costo. No hay rehén digital. La cancelación es de un mes a otro.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">¿Los pagos pasan por ustedes? ¿Cobran comisión por venta?</summary>
+        <div class="faq-a">Grooming y veterinaria son tuyos al 100% sin comisión por servicio. Solo cobramos una pequeña comisión sobre las compras recurrentes con suscripción de productos (que de otro modo no estarías facturando). Y la suscripción mensual del plan, claro. Pagos procesados con Stripe directo a tu cuenta.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">¿Funciona si solo hago grooming, o si solo tengo veterinaria?</summary>
+        <div class="faq-a">Sí. Activas únicamente los servicios que ofreces. La plataforma se adapta a la realidad de tu petshop desde un groomer independiente hasta una clínica veterinaria con tienda. Si solo vendes productos, también funciona como canal de recurrencia.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">¿Qué tan rápido puedo empezar a operar?</summary>
+        <div class="faq-a">Una sesión inicial de 60 minutos contigo: configuramos servicios, horarios y precios, y migramos tus contactos si los tienes en hoja de cálculo. En 2–3 días tu petshop está visible en la app y empiezas a recibir reservas. Sin instalaciones, todo desde el navegador.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">¿Está disponible solo en Panamá?</summary>
+        <div class="faq-a">El lanzamiento es en Panamá durante 2026. Estamos preparando expansión a Centroamérica y Latinoamérica. Si tu petshop está fuera de Panamá y te interesa, escríbenos entras a la lista de mercados prioritarios para 2027.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════ FINAL CTA ════════════════════════════ -->
+<section class="final">
+  <div class="container">
+    <div class="final-card">
+      <span class="pill pill-cream pill-dot" style="font-size: 14px">Conversamos antes de comprometerte</span>
+      <h2 class="h-1">¿Y si tu próximo lunes empieza distinto?</h2>
+      <p class="lede">No te pedimos que te afilies hoy. Te pedimos 30 minutos para entender tu petshop y mostrarte cómo se vería con MiPetFamily. Si no tiene sentido para ti, lo decimos primero.</p>
+      <div class="final-ctas">
+        <a class="btn btn-primary btn-lg" href="#">Quiero saber más</a>
+        <a class="btn btn-ghost btn-lg" href="https://petfamily-sigma.vercel.app/registro" style="color: rgb(96, 178, 112); border-color: rgb(96, 178, 112)">Volver a ver cómo funciona</a>
+      </div>
+      <div class="final-trust">Sin tarjeta · sin compromiso · respuesta en menos de 24h</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════ FOOTER ════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">
+          <div class="brand-mark"><img src="assets/mipetfamily-logo.png" alt="miPETfamily" style="object-fit: contain"></div>
+          <div>
+            <div class="brand-word"><span class="mi" style="color: rgb(102, 0, 187)">mi</span><span class="pet">PET</span><span class="family" style="color: rgb(96, 178, 112)">family</span></div>
+          </div>
+        </div>
+        <p class="foot-desc">La plataforma que conecta tu petshop con sus familias. Un producto de Biemstar LLC, hecho en Panamá.</p>
+      </div>
+      <div>
+        <div class="foot-h">Producto</div>
+        <a class="foot-link" href="#problema">El problema</a>
+        <a class="foot-link" href="https://petfamily-sigma.vercel.app/registro">Cómo funciona</a>
+        <a class="foot-link" href="#beneficios">Beneficios</a>
+        <a class="foot-link" href="#petmatch">PetMatch</a>
+        <a class="foot-link" href="#precios">Precios</a>
+      </div>
+      <div>
+        <div class="foot-h">Empresa</div>
+        <a class="foot-link" href="#">Sobre Biemstar</a>
+        <a class="foot-link" href="#">minexosalud</a>
+        <a class="foot-link" href="#">Contacto</a>
+        <a class="foot-link" href="#">Trabaja con nosotros</a>
+      </div>
+      <div>
+        <div class="foot-h">Legal</div>
+        <a class="foot-link" href="#">Términos de uso</a>
+        <a class="foot-link" href="#">Privacidad</a>
+        <a class="foot-link" href="#">Ley 81 Panamá</a>
+        <a class="foot-link" href="#">Manual del petshop</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Biemstar LLC · MiPetFamily · Panamá</span>
+      <span><a href="#">Instagram</a><a href="#">LinkedIn</a><a href="#">contacto@biemstar.com</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Mobile nav toggle
+const burger = document.getElementById('burger');
+const mobileMenu = document.getElementById('mobile-menu');
+if(burger && mobileMenu){
+  burger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
+}
+
+// FAQ — open one at a time (optional, comment out for multi-open)
+document.querySelectorAll('.faq-item').forEach(item => {
+  item.addEventListener('toggle', e => {
+    if(item.open){
+      document.querySelectorAll('.faq-item').forEach(o => { if(o !== item) o.removeAttribute('open'); });
+    }
+  });
+});
+</script>
+</body>
+</html>
