@@ -741,5 +741,19 @@ onView(tb,function(e){e.classList.add('on')},.2);
   document.addEventListener('keydown',function(e){if(e.key==='Escape'&&m.classList.contains('on'))cerrar();});
 })();
 </script>
+<script>
+  // Código de origen: el ?o= con que llegó la visita (o "landing" si llegó directo) pasa a los
+  // botones que van a business y a la app, para saber de dónde viene cada cuenta nueva.
+  (function () {
+    var o = (new URLSearchParams(location.search).get('o') || '').trim().toLowerCase();
+    if (!/^[a-z0-9][a-z0-9_-]{0,39}$/.test(o)) o = 'landing';
+    document.querySelectorAll('a[href^="https://business.biemstar.com"], a[href^="https://app.biemstar.com"]').forEach(function (a) {
+      var u = new URL(a.href);
+      if (/^\/(terminos|privacidad)$/.test(u.pathname)) return;
+      u.searchParams.set('o', o);
+      a.href = u.toString();
+    });
+  })();
+</script>
 </body>
 </html>
