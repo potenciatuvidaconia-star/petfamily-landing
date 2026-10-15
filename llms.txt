@@ -16,7 +16,7 @@
 - Agenda de citas de grooming y veterinaria, historial de cada mascota, clientes y tienda.
 - Funciona desde el navegador, sin instalar nada.
 - Precio: USD 70 al mes o USD 700 al año por local, sin contrato. Varios locales: a la medida.
-- Comisión: 0 % en citas de grooming y veterinaria; comisión baja en suscripciones de productos.
+- Comisión: 0 % en citas de grooming y veterinaria; 10 % en suscripciones de productos.
 - La información del petshop es suya: se entrega completa si deja de usar petxia.
 - Registro: https://business.biemstar.com/registro
 
