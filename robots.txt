@@ -1,0 +1,5 @@
+# petxia: todos los buscadores y asistentes de IA pueden leer la web pública.
+User-agent: *
+Allow: /
+
+Sitemap: https://biemstar.com/sitemap.xml

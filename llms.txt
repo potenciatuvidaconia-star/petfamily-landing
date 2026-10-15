@@ -1,0 +1,37 @@
+# petxia
+
+> petxia es la galaxia de las mascotas: todo el mundo de tu mascota en una app con IA.
+> Es gratis para los dueños. petxia business es el software para petshops, grooming y
+> veterinarias que se conecta con esa app. Hecha en Panamá; el lanzamiento es en Panamá.
+
+## Para dueños de mascotas (gratis)
+- Ficha de cada mascota con su historial y carnet de vacunas.
+- "Hoy con": rutina diaria, comidas y recordatorios.
+- Roro: asistente con IA para dudas del día a día (no reemplaza al veterinario).
+- Pet Match y Adopta (mascotas rescatadas por fundaciones; publicar es gratis para fundaciones).
+- Citas con los petshops y veterinarias que usan petxia business, a medida que se suman.
+- Web app instalable: https://app.biemstar.com
+
+## Para petshops, grooming y veterinarias: petxia business
+- Agenda de citas de grooming y veterinaria, historial de cada mascota, clientes y tienda.
+- Funciona desde el navegador, sin instalar nada.
+- Precio: USD 70 al mes o USD 700 al año por local, sin contrato. Varios locales: a la medida.
+- Comisión: 0 % en citas de grooming y veterinaria; comisión baja en suscripciones de productos.
+- La información del petshop es suya: se entrega completa si deja de usar petxia.
+- Registro: https://business.biemstar.com/registro
+
+## Dónde opera
+Panamá. Otros países: lista de espera por correo.
+
+## Contacto
+contacto@biemstar.com
+
+## Páginas
+- Inicio y precios para petshops: https://biemstar.com/
+- Para dueños de mascotas: https://biemstar.com/duenos/
+- Para veterinarias: https://biemstar.com/veterinarias/
+- Para grooming: https://biemstar.com/grooming/
+- Para fundaciones (Adopta): https://biemstar.com/fundaciones/
+- Términos: https://business.biemstar.com/terminos
+- Privacidad: https://business.biemstar.com/privacidad
+- YouTube: https://www.youtube.com/@petxiaoficial
