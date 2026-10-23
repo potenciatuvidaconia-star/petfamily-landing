@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://biemstar.com/sitemap.xml
+Sitemap: https://petxia.app/sitemap.xml

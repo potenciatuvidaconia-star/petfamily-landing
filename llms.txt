@@ -10,7 +10,7 @@
 - Roro: asistente con IA para dudas del día a día (no reemplaza al veterinario).
 - Pet Match y Adopta (mascotas rescatadas por fundaciones; publicar es gratis para fundaciones).
 - Citas con los petshops y veterinarias que usan petxia business, a medida que se suman.
-- Web app instalable: https://app.biemstar.com
+- Web app instalable: https://app.petxia.app
 
 ## Para petshops, grooming y veterinarias: petxia business
 - Agenda de citas de grooming y veterinaria, historial de cada mascota, clientes y tienda.
@@ -18,7 +18,7 @@
 - Precio: USD 70 al mes o USD 700 al año por local, sin contrato. Varios locales: a la medida.
 - Comisión: 0 % en citas de grooming y veterinaria; 10 % en suscripciones de productos.
 - La información del petshop es suya: se entrega completa si deja de usar petxia.
-- Registro: https://business.biemstar.com/registro
+- Registro: https://business.petxia.app/registro
 
 ## Dónde opera
 Panamá. Otros países: lista de espera por correo.
@@ -27,11 +27,11 @@ Panamá. Otros países: lista de espera por correo.
 contacto@biemstar.com
 
 ## Páginas
-- Inicio y precios para petshops: https://biemstar.com/
-- Para dueños de mascotas: https://biemstar.com/duenos/
-- Para veterinarias: https://biemstar.com/veterinarias/
-- Para grooming: https://biemstar.com/grooming/
-- Para fundaciones (Adopta): https://biemstar.com/fundaciones/
-- Términos: https://business.biemstar.com/terminos
-- Privacidad: https://business.biemstar.com/privacidad
+- Inicio y precios para petshops: https://petxia.app/
+- Para dueños de mascotas: https://petxia.app/duenos/
+- Para veterinarias: https://petxia.app/veterinarias/
+- Para grooming: https://petxia.app/grooming/
+- Para fundaciones (Adopta): https://petxia.app/fundaciones/
+- Términos: https://business.petxia.app/terminos
+- Privacidad: https://business.petxia.app/privacidad
 - YouTube: https://www.youtube.com/@petxiaoficial
