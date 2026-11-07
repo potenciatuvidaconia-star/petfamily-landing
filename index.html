@@ -907,7 +907,22 @@ onView(tb,function(e){e.classList.add('on')},.2);
   // botones que van a business y a la app, para saber de dónde viene cada cuenta nueva.
   (function () {
     var o = (new URLSearchParams(location.search).get('o') || '').trim().toLowerCase();
-    if (!/^[a-z0-9][a-z0-9_-]{0,39}$/.test(o)) o = 'landing';
+    var valido = /^[a-z0-9][a-z0-9_-]{0,39}$/;
+    // Sin ?o=: si viene de una red social, se anota la red (ej. instagram-ref)
+    if (!valido.test(o)) {
+      o = '';
+      try {
+        var h = document.referrer ? new URL(document.referrer).hostname : '';
+        var redes = [[/instagram\.com$/, 'instagram-ref'], [/(facebook\.com|fb\.com|fb\.me)$/, 'facebook-ref'], [/(tiktok\.com|tiktokv\.com)$/, 'tiktok-ref'], [/(youtube\.com|youtu\.be)$/, 'youtube-ref'], [/(^|\.)(t\.co|x\.com|twitter\.com)$/, 'x-ref'], [/(^|\.)google\./, 'google-ref']];
+        for (var i = 0; i < redes.length; i++) if (redes[i][0].test(h)) { o = redes[i][1]; break; }
+      } catch (e) {}
+    }
+    // Los enlaces internos (ej. "Conoce la app" → /duenos) llevan el mismo código, para no perderlo al cambiar de página
+    if (o) document.querySelectorAll('a[href^="/"]').forEach(function (a) {
+      var u = new URL(a.href, location.href); if (u.hash && u.pathname === location.pathname) return;
+      u.searchParams.set('o', o); a.href = u.pathname + u.search + u.hash;
+    });
+    if (!o) o = 'landing';
     document.querySelectorAll('a[href^="https://business.petxia.app"], a[href^="https://app.petxia.app"]').forEach(function (a) {
       var u = new URL(a.href);
       if (/^\/(terminos|privacidad)$/.test(u.pathname)) return;
