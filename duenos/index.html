@@ -531,6 +531,71 @@ button.btn{background:transparent;cursor:pointer;font-family:inherit}
 </style>
 <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
 <script defer src="/_vercel/insights/script.js"></script>
+<style>
+/* Galaxia del hero (dueños) */
+.d-hero .hero-grid{grid-template-columns:1fr 1.2fr}
+@media (max-width:980px){.d-hero .hero-grid{grid-template-columns:1fr}}
+.gx .roro{height:auto}
+.gx{display:flex;flex-direction:column;align-items:center;gap:6px}
+.gx .galaxia{position:relative;aspect-ratio:1/.9;width:100%;max-width:700px;perspective:1400px}
+.gx .plano{position:absolute;left:0;right:0;top:-11%;bottom:-11%;transform-style:preserve-3d;transform:rotateX(var(--rx)) rotateZ(var(--rz));pointer-events:none}
+.gx .p1{--rx:52deg;--rz:-6deg;--t:8s;--d:50%}
+.gx .p2{--rx:56deg;--rz:8deg;--t:11s;--d:57%}
+.gx .p3{--rx:50deg;--rz:-12deg;--t:14s;--d:64%}
+.gx .p4{--rx:55deg;--rz:4deg;--t:10s;--d:71%}
+.gx .p5{--rx:51deg;--rz:-9deg;--t:16s;--d:79%}
+.gx .p6{--rx:54deg;--rz:11deg;--t:12s;--d:87%}
+.gx .p7{--rx:53deg;--rz:-3deg;--t:13s;--d:95%}
+.gx .anillo{position:absolute;left:50%;top:50%;width:var(--d);height:var(--d);border-radius:50%;transform:translate(-50%,-50%);border:1px solid rgba(231,160,127,.28);
+  box-shadow:0 0 30px rgba(193,102,63,.12),inset 0 0 30px rgba(193,102,63,.08)}
+.gx .p2 .anillo,.gx .p5 .anillo{border-color:rgba(157,185,162,.26)}
+.gx .p3 .anillo,.gx .p6 .anillo,.gx .p7 .anillo{border-color:rgba(251,246,241,.16)}
+.gx .orbita{position:absolute;inset:0;transform-style:preserve-3d;animation:gx-vaiven var(--t) ease-in-out infinite alternate}
+.gx .anillo:after{content:"";position:absolute;inset:-1px;border-radius:50%;border:1px dashed rgba(251,246,241,.14);animation:gx-girar calc(var(--t) * 6) linear infinite}
+.gx .p2 .anillo:after,.gx .p4 .anillo:after,.gx .p6 .anillo:after{animation-direction:reverse}
+.gx .planeta{position:absolute;left:var(--x);top:var(--y);transform-style:preserve-3d}
+.gx .pivote{transform-style:preserve-3d;animation:gx-vaiven-inv var(--t) ease-in-out infinite alternate}
+.gx .cara{pointer-events:auto;transform:translate(-50%,-50%) rotateZ(calc(var(--rz) * -1)) rotateX(calc(var(--rx) * -1)) translateY(var(--alto,0px));display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer}
+.gx .bola{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,var(--c2),var(--c) 70%);
+  box-shadow:0 0 0 1px rgba(251,246,241,.18),0 10px 24px rgba(0,0,0,.45),0 0 26px var(--glow);transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s}
+.gx .bola svg{width:30px;height:30px;stroke:#fff;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.gx .etq{font-family:var(--fT);font-size:14px;font-weight:600;white-space:nowrap;padding:4px 11px;border-radius:99px;background:rgba(34,23,18,.75);border:1px solid rgba(251,246,241,.12)}
+.gx .cara:hover .bola,.gx .planeta.on .bola{transform:scale(1.18);box-shadow:0 0 0 2px var(--crema),0 14px 30px rgba(0,0,0,.5),0 0 44px var(--glow)}
+.gx .planeta.on .etq{background:var(--crema);color:var(--esp)}
+.gx .galaxia:hover .orbita,.gx .galaxia:hover .pivote{animation-play-state:paused}
+.gx .nucleo{position:absolute;left:50%;top:50%;width:18%;aspect-ratio:1;transform:translate(-50%,-62%);display:grid;place-items:center}
+.gx .nucleo:before{content:"";position:absolute;inset:-60%;border-radius:50%;background:radial-gradient(circle,rgba(231,160,127,.55),rgba(193,102,63,.18) 40%,transparent 68%);animation:gx-latir 3.6s ease-in-out infinite}
+.gx .nucleo{cursor:pointer}
+.gx .roro{position:relative;width:150%;max-width:none;overflow:visible;filter:drop-shadow(0 10px 18px rgba(0,0,0,.45)) drop-shadow(0 0 22px rgba(231,160,127,.55));animation:gx-rebote 2.4s ease-in-out infinite;transform-origin:50% 100%}
+.gx .antena{animation:gx-antena .9s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.gx .nucleo.on b{background:var(--crema);color:var(--esp)}
+.gx .nucleo b{position:absolute;bottom:-30px;font-family:var(--fT);font-weight:600;font-size:14px;color:var(--crema);white-space:nowrap;padding:4px 12px;border-radius:99px;background:rgba(193,102,63,.22);border:1px solid rgba(231,160,127,.4)}
+.gx .info{position:relative;width:min(460px,100%);padding:16px 20px;border-radius:18px;
+  background:rgba(45,32,25,.86);border:1px solid rgba(251,246,241,.12);box-shadow:0 24px 50px rgba(0,0,0,.45);backdrop-filter:blur(8px)}
+.gx .info h3{font-family:var(--fT);font-weight:600;font-size:19px;color:var(--terraL)}
+.gx .info p{font-size:14.5px;line-height:1.5;color:rgba(251,246,241,.8);margin-top:6px;min-height:3em}
+.gx .info .pista{font-size:11.5px;color:rgba(251,246,241,.45);margin-top:8px}
+@media (max-width:900px){.gx .plano{--rx:0deg!important;--rz:0deg!important}
+.gx .p1 .anillo{width:74%;height:74%}
+.gx .p2 .anillo,.gx .p3 .anillo,.gx .p4 .anillo,.gx .p5 .anillo,.gx .p6 .anillo,.gx .p7 .anillo{display:none}
+.gx .galaxia{aspect-ratio:1/1}
+.gx .plano{top:0;bottom:0}
+.gx .orbita,.gx .pivote{animation:none!important}
+.gx .planeta{left:var(--mx);top:var(--my)}
+.gx .nucleo{transform:translate(-50%,-56%);width:24%}
+.gx .roro{width:112%}
+.gx .galaxia{max-width:440px;margin-top:10px}
+.gx .bola{width:48px;height:48px}
+.gx .bola svg{width:22px;height:22px}
+.gx .etq{font-size:12px}}
+@media (prefers-reduced-motion:reduce){.gx .anillo:after,.gx .orbita,.gx .pivote,.gx .nucleo:before,.gx .roro,.gx .antena{animation:none!important}}
+@keyframes gx-rebote{0%,100%{transform:translateY(0) scale(1,1)}40%{transform:translateY(-4%) scale(.98,1.02)}55%{transform:translateY(0) scale(1.03,.97)}}
+@keyframes gx-antena{0%,100%{transform:scale(.72)}50%{transform:scale(.9)}}
+@keyframes gx-girar{to{transform:rotate(360deg)}}
+@keyframes gx-vaiven{from{transform:rotate(-5deg)}to{transform:rotate(5deg)}}
+@keyframes gx-vaiven-inv{from{transform:rotate(5deg)}to{transform:rotate(-5deg)}}
+@keyframes gx-latir{50%{transform:scale(1.08);opacity:.85}}
+</style>
 </head>
 <body>
 <nav id="nav">
@@ -542,7 +607,8 @@ button.btn{background:transparent;cursor:pointer;font-family:inherit}
 </nav>
 
 <header class="hero d-hero" id="top">
-  <div class="wrap">
+  <div class="wrap hero-grid">
+    <div>
     <div class="kick hero-kicker"><i></i>petxia · gratis para dueños en Panamá</div>
     <h1 class="hero-headline">Todo el mundo de tu mascota, <em>en una app.</em></h1>
     <p class="hero-sub">Su carnet de vacunas con avisos, su diario de cada día y Roro, un asistente con IA que te responde a cualquier hora. Gratis para ti, hecha en Panamá.</p>
@@ -550,6 +616,21 @@ button.btn{background:transparent;cursor:pointer;font-family:inherit}
       <a class="btn btn-p" href="https://app.petxia.app">Abrir petxia gratis</a>
       <a class="btn btn-g" href="#empezar">Cómo instalarla</a>
     </div>
+    </div>
+    <!-- La galaxia de tu mascota: cada función en su órbita, la mascota al centro -->
+    <div class="gx">
+    <div class="galaxia" id="galaxia" aria-label="La galaxia de tu mascota">
+      <div class="plano p1"><div class="anillo"></div><div class="orbita"><div class="planeta" data-n="Hoy con" data-d="Su diario: en 30 segundos anotas sus comidas, el paseo, pipí y popó, y una foto del día. Si algo cambia dos días seguidos, petxia te avisa." style="--x:75.00%;--y:49.56%;--mx:50.00%;--my:11.00%"><div class="pivote"><div class="cara" role="button" tabindex="0" aria-label="Hoy con"><div class="bola" style="--c:#C1663F;--c2:#E7A07F;--glow:rgba(231,160,127,.6)"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M8 3v4M16 3v4M4 10h16"/></svg></div><div class="etq">Hoy con</div></div></div></div></div></div>
+      <div class="plano p2"><div class="anillo"></div><div class="orbita"><div class="planeta" data-n="Historial clínico" data-d="Vacunas, desparasitaciones, consultas, peso y exámenes en un solo lugar. Le tomas foto al carnet y petxia lo lee con IA; te avisamos antes de cada vacuna." style="--x:24.61%;--y:62.94%;--mx:80.49%;--my:25.68%"><div class="pivote"><div class="cara" role="button" tabindex="0" aria-label="Historial clínico"><div class="bola" style="--c:#4F6A55;--c2:#9DB9A2;--glow:rgba(157,185,162,.55)"><svg viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6z"/><path d="M9 10h6M12 7v6"/><path d="M9 17h6"/></svg></div><div class="etq">Historial clínico</div></div></div></div></div></div>
+      <div class="plano p3"><div class="anillo"></div><div class="orbita"><div class="planeta" data-n="Roro IA" data-d="Roro, tu asistente con IA: te responde dudas del cuidado de tu mascota a cualquier hora. No reemplaza a tu veterinario: si algo te preocupa, consúltalo." style="--x:43.89%;--y:81.41%;--mx:88.02%;--my:58.68%"><div class="pivote"><div class="cara" role="button" tabindex="0" aria-label="Roro IA"><div class="bola" style="--c:#F3E8DC;--c2:#FFF3E8;--glow:rgba(255,243,232,.55)"><svg viewBox="-150 -184 300 354" style="width:38px;height:44px;stroke:none"><path d="M0 -94 Q-6 -118 4 -134" stroke="#D9A27A" stroke-width="7" fill="none" stroke-linecap="round"/> <g transform="translate(6,-146)"><g class="antena"><path d="M0 18 C-30 -6 -24 -30 -6 -26 C0 -24 0 -18 0 -16 C0 -18 0 -24 6 -26 C24 -30 30 -6 0 18Z" fill="#C1663F"/></g></g> <circle cx="0" cy="34" r="114" fill="#FFF3E8"/> <path d="M72 -38 Q126 14 98 104 Q80 140 36 148 Q108 96 72 -38Z" fill="#F1DCC9" opacity=".8"/> <ellipse cx="-52" cy="150" rx="34" ry="16" fill="#F1DCC9"/><ellipse cx="52" cy="150" rx="34" ry="16" fill="#F1DCC9"/> <g transform="translate(-92,-14) rotate(18) scale(1,1.3)"><path d="M0 0 Q-34 30 -22 96 Q-4 108 12 90 Q18 40 16 0Z" fill="#D9A27A"/></g> <g transform="translate(92,-14) rotate(-18) scale(1,1.3)"><path d="M0 0 Q34 30 22 96 Q4 108 -12 90 Q-18 40 -16 0Z" fill="#D9A27A"/></g> <ellipse cx="0" cy="40" rx="30" ry="22" fill="#fff"/><ellipse cx="0" cy="26" rx="13" ry="9" fill="#2A1E18"/> <path d="M-12 50 Q0 62 12 50" stroke="#2A1E18" stroke-width="5" fill="none" stroke-linecap="round"/> <g transform="translate(-40,-6)"><ellipse rx="13" ry="16" fill="#2A1E18"/><circle cx="4" cy="-6" r="5" fill="#fff"/></g> <g transform="translate(40,-6)"><ellipse rx="13" ry="16" fill="#2A1E18"/><circle cx="4" cy="-6" r="5" fill="#fff"/></g> <circle cx="-74" cy="30" r="14" fill="#E8977A" opacity=".55"/><circle cx="74" cy="30" r="14" fill="#E8977A" opacity=".55"/></svg></div><div class="etq">Roro IA</div></div></div></div></div></div>
+      <div class="plano p4"><div class="anillo"></div><div class="orbita"><div class="planeta" data-n="Vet &amp; Grooming" data-d="Veterinarias y tiendas de mascotas cerca de ti, con su dirección y su teléfono. Y sus consultas y baños quedan anotados en su historial." style="--x:41.41%;--y:15.55%;--mx:66.92%;--my:85.14%"><div class="pivote"><div class="cara" role="button" tabindex="0" aria-label="Vet &amp; Grooming"><div class="bola" style="--c:#A9532F;--c2:#E7A07F;--glow:rgba(231,160,127,.5)"><svg viewBox="0 0 24 24"><path d="M5 3v5a4 4 0 0 0 8 0V3"/><path d="M9 12v3a5 5 0 0 0 10 0v-2"/><circle cx="19" cy="11" r="2"/></svg></div><div class="etq">Vet &amp; Grooming</div></div></div></div></div></div>
+      <div class="plano p5"><div class="anillo"></div><div class="orbita"><div class="planeta" data-n="Pet Match" data-d="Pareja para tu mascota cerca de casa, con dueños responsables. Su perfil solo se muestra si tú lo activas." style="--x:75.39%;--y:80.26%;--mx:33.08%;--my:85.14%"><div class="pivote"><div class="cara" role="button" tabindex="0" aria-label="Pet Match"><div class="bola" style="--c:#C1663F;--c2:#F0B48E;--glow:rgba(231,160,127,.55)"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-9.5A4 4 0 0 1 12 8a4 4 0 0 1 7 2.5C19 15.6 12 20 12 20z"/></svg></div><div class="etq">Pet Match</div></div></div></div></div></div>
+      <div class="plano p6"><div class="anillo"></div><div class="orbita"><div class="planeta" data-n="Suscripciones" data-d="Muy pronto: activas una sola vez su comida, su arena o su antipulgas, y llegan solos de tu petshop de siempre, cada cuánto lo necesita." style="--x:10.26%;--y:32.31%;--mx:11.98%;--my:58.68%"><div class="pivote"><div class="cara" role="button" tabindex="0" aria-label="Suscripciones"><div class="bola" style="--c:#4F6A55;--c2:#B5CDB9;--glow:rgba(157,185,162,.55)"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/><path d="M9 12l2 2 4-4"/></svg></div><div class="etq">Suscripciones</div></div></div></div></div></div>
+      <div class="plano p7"><div class="anillo"></div><div class="orbita"><div class="planeta" data-n="Bed &amp; Care" data-d="Bien cuidado: hospedaje y guardería en casas de cuidadores verificados, para cuando no puedes estar con tu mascota." style="--x:78.59%;--y:12.06%;--mx:19.51%;--my:25.68%"><div class="pivote"><div class="cara" role="button" tabindex="0" aria-label="Bed &amp; Care"><div class="bola" style="--c:#B04A64;--c2:#E58BA0;--glow:rgba(229,139,160,.5)"><svg viewBox="0 0 24 24"><path d="M3 18V8"/><path d="M3 13h18v5"/><path d="M21 18v-3"/><path d="M7 13v-2a2 2 0 0 1 2-2h3v4"/></svg></div><div class="etq">Bed &amp; Care</div></div></div></div></div></div>
+      <div class="nucleo" id="nucleo" role="button" tabindex="0" aria-label="Tu mascota"><img class="roro" width="480" height="288" src="/assets/gato-perro.png" alt="El gato y el perro de petxia"><b>Tu mascota</b></div>
+    </div>
+    <div class="info" aria-live="polite"><h3 id="gx-t">Tu mascota</h3><p id="gx-d">Todo en petxia gira alrededor de tu mascota. Toca un planeta para ver cómo la cuida cada función.</p><div class="pista">Toca un planeta para ver qué hace</div></div>
+</div>
   </div>
 </header>
 
@@ -658,6 +739,34 @@ button.btn{background:transparent;cursor:pointer;font-family:inherit}
       var u = new URL(a.href); u.searchParams.set('o', o); a.href = u.toString();
     });
   })();
+</script>
+<script>
+/* Galaxia del hero: muestra qué hace cada función al tocarla */
+(function(){
+const RORO = { n: 'Tu mascota', d: 'Todo en petxia gira alrededor de tu mascota. Toca un planeta para ver cómo la cuida cada función.' };
+const planetas = [...document.querySelectorAll('.planeta')].map(el => ({ el, f: { n: el.dataset.n, d: el.dataset.d } }));
+const t = document.getElementById('gx-t'), d = document.getElementById('gx-d'), nucleo = document.getElementById('nucleo');
+let actual = -1, manual = false;
+function mostrar(i) {
+  actual = i;
+  planetas.forEach((p, k) => p.el.classList.toggle('on', k === i));
+  nucleo.classList.toggle('on', i === -1);
+  const f = i === -1 ? RORO : planetas[i].f;
+  t.textContent = f.n; d.textContent = f.d;
+}
+planetas.forEach((p, i) => {
+  const cara = p.el.querySelector('.cara');
+  cara.addEventListener('click', () => { manual = true; mostrar(i); });
+  cara.addEventListener('mouseenter', () => mostrar(i));
+  cara.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); manual = true; mostrar(i); } });
+});
+nucleo.addEventListener('click', () => { manual = true; mostrar(-1); });
+nucleo.addEventListener('mouseenter', () => mostrar(-1));
+nucleo.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); manual = true; mostrar(-1); } });
+mostrar(-1);
+const quieto = matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (!quieto) setInterval(() => { if (!manual && !document.getElementById('galaxia').matches(':hover')) mostrar(actual + 1 >= planetas.length ? -1 : actual + 1); }, 4200);
+})();
 </script>
 </body>
 </html>
