@@ -19,14 +19,14 @@ body{background:var(--crema);color:var(--tx);font-family:'Plus Jakarta Sans',sys
 main{max-width:520px;margin:0 auto;padding:28px 16px 48px}
 .top{display:flex;align-items:center;justify-content:center;gap:8px;font-family:'Fredoka';font-weight:600;color:var(--terra);font-size:20px}
 .top img{width:44px}
-h1{font-family:'Caveat';font-weight:700;font-size:42px;line-height:1;text-align:center;margin:18px 0 4px}
+h1{font-family:'Fredoka';font-weight:600;font-size:32px;line-height:1.1;text-align:center;margin:18px 0 4px}
 .sub{text-align:center;color:var(--mid);font-size:15px}
 .escena{position:relative;height:330px;margin:14px 0 10px;overflow:hidden}
 .disco{position:absolute;left:50%;top:96px;width:240px;height:240px;margin-left:-120px;border-radius:50%;background:var(--disco)}
 .pj{position:absolute;bottom:4px;width:165px}
 .pj svg{width:100%;height:auto;display:block}
 .mateo{left:calc(50% - 165px)} .mishu{left:calc(50% + 2px);width:150px}
-.burbuja{position:absolute;max-width:62%;background:#fff;border-radius:18px;padding:10px 14px;font-family:'Caveat';font-weight:600;font-size:25px;line-height:1.05;box-shadow:0 6px 18px rgba(59,42,34,.12);opacity:0;transform:translateY(8px) scale(.96);transition:all .35s ease}
+.burbuja{position:absolute;max-width:64%;background:#fff;border-radius:18px;padding:10px 14px;font-family:'Fredoka';font-weight:500;font-size:19px;line-height:1.2;box-shadow:0 6px 18px rgba(59,42,34,.12);opacity:0;transform:translateY(8px) scale(.96);transition:all .35s ease}
 .burbuja.ver{opacity:1;transform:none}
 .burbuja.izq{left:2%;border-bottom-left-radius:4px}
 .burbuja.der{right:2%;border-bottom-right-radius:4px;text-align:right}
@@ -42,11 +42,12 @@ input:focus,select:focus{outline:none;border-color:var(--terra)}
 button.ir{width:100%;margin-top:18px;background:var(--terra);color:#fff;border:0;border-radius:14px;padding:15px;font:600 18px 'Fredoka';cursor:pointer}
 button.ir:disabled{opacity:.6}
 .error{color:#B3261E;font-size:13px;margin-top:10px;min-height:1em}
+.promesa{background:var(--terra);color:#fff;border-radius:20px;padding:22px 20px;margin-top:20px;text-align:center}.promesa h2{font-family:'Fredoka';font-weight:600;font-size:23px;line-height:1.2}.promesa p{font-size:15.5px;line-height:1.45;margin-top:8px;opacity:.95}
 .legal{color:var(--mid);font-size:11.5px;margin-top:12px;text-align:center}
 .gracias{text-align:center;display:none}
 .gracias .duo{display:flex;justify-content:center;gap:4px;margin:6px 0 4px}
 .gracias .duo div{width:96px}
-.gracias p{font-family:'Caveat';font-size:26px;font-weight:600;line-height:1.1;margin-top:6px}
+.gracias p{font-family:'Fredoka';font-size:19px;font-weight:500;line-height:1.3;margin-top:6px;color:var(--tx)}
 footer{text-align:center;color:var(--mid);font-size:12px;margin-top:28px}
 </style>
 </head>
@@ -63,15 +64,23 @@ footer{text-align:center;color:var(--mid);font-size:12px;margin-top:28px}
   </div>
   <button class="repetir" id="repetir" type="button">Ver la conversación otra vez</button>
 
+  <div class="promesa">
+    <h2>Mateo y Mishu tienen un sueño</h2>
+    <p>Que todas las mascotas reciban la atención que necesitan, justo cuando la necesitan. Que a sus familias no se les olvide nunca más su baño, su vacuna o su control.</p>
+    <p><b>¿Nos ayudas? ¿Eres nuestro cómplice?</b></p>
+  </div>
+
   <form id="form" novalidate>
     <h2>Únete a la banda</h2>
-    <p>Déjanos tu WhatsApp y te contamos el plan antes que a nadie.</p>
+    <p>Déjanos estos dos datos y te contamos el plan antes que a nadie.</p>
+    <label for="local">Nombre de tu local</label>
+    <input id="local" name="local" autocomplete="organization" maxlength="120" required>
     <label for="whatsapp">Tu WhatsApp</label>
     <input id="whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="6000-0000" maxlength="20" required>
     <input class="trampa" name="web" tabindex="-1" autocomplete="off" aria-hidden="true">
-    <button class="ir" id="enviar" type="submit">Quiero ser cómplice</button>
+    <button class="ir" id="enviar" type="submit">Sí, soy cómplice</button>
     <div class="error" id="error" role="alert"></div>
-    <div class="legal">Solo lo usamos para escribirte sobre el plan. No lo compartimos con nadie.</div>
+    <div class="legal">Solo los usamos para escribirte sobre el plan. No los compartimos con nadie.</div>
   </form>
 
   <div class="gracias" id="gracias">
@@ -151,9 +160,9 @@ const DIALOGO = [
   ['Mishu','der','¿Lo escaneó? 👀'],
   ['Mateo','izq','¡Sí! Ya es de los nuestros.'],
   ['Mishu','der','¿Le contamos el plan?'],
-  ['Mateo','izq','Todavía no... primero necesitamos su WhatsApp.'],
-  ['Mishu','der','Que no se entere nadie más.'],
-  ['Mateo','izq','Shh. Muy pronto. 😉'],
+  ['Mateo','izq','Todavía no... pero sí nuestro sueño.'],
+  ['Mishu','der','Que ninguna mascota se quede sin su baño, su vacuna o su control.'],
+  ['Mateo','izq','Porque a sus familias no se les va a olvidar más. 😉'],
 ];
 const escena = document.getElementById('escena');
 let timers = [];
@@ -180,14 +189,14 @@ const form = document.getElementById('form'), err = document.getElementById('err
 form.addEventListener('submit', async e => {
   e.preventDefault(); err.textContent = '';
   const d = Object.fromEntries(new FormData(form)); d.o = o;
-  if (d.whatsapp.replace(/\D/g,'').length < 7) { err.textContent = 'Escribe tu WhatsApp.'; return; }
+  if (!d.local.trim() || d.whatsapp.replace(/\D/g,'').length < 7) { err.textContent = 'Escribe el nombre de tu local y tu WhatsApp.'; return; }
   btn.disabled = true; btn.textContent = 'Enviando...';
   try {
     const r = await fetch('https://business.petxia.app/api/complice', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(d) });
     const j = await r.json().catch(() => ({}));
     if (!r.ok && r.status !== 429) throw new Error(j.error || 'No pudimos guardar tus datos. Intenta de nuevo.');
     form.style.display = 'none'; document.getElementById('gracias').style.display = 'block';
-  } catch (x) { err.textContent = x.message; btn.disabled = false; btn.textContent = 'Quiero ser cómplice'; }
+  } catch (x) { err.textContent = x.message; btn.disabled = false; btn.textContent = 'Sí, soy cómplice'; }
 });
 </script>
 </body>
