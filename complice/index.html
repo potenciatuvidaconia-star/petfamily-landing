@@ -65,19 +65,13 @@ footer{text-align:center;color:var(--mid);font-size:12px;margin-top:28px}
 
   <form id="form" novalidate>
     <h2>Únete a la banda</h2>
-    <p>Déjanos tu contacto y te contamos el plan antes que a nadie.</p>
-    <label for="local">Nombre de tu local</label>
-    <input id="local" name="local" autocomplete="organization" maxlength="120" required>
-    <label for="nombre">Tu nombre</label>
-    <input id="nombre" name="nombre" autocomplete="name" maxlength="120" required>
+    <p>Déjanos tu WhatsApp y te contamos el plan antes que a nadie.</p>
     <label for="whatsapp">Tu WhatsApp</label>
     <input id="whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="6000-0000" maxlength="20" required>
-    <label for="tipo">Tu local es</label>
-    <select id="tipo" name="tipo"><option value="petshop">Petshop</option><option value="grooming">Grooming</option><option value="veterinaria">Veterinaria</option></select>
     <input class="trampa" name="web" tabindex="-1" autocomplete="off" aria-hidden="true">
     <button class="ir" id="enviar" type="submit">Quiero ser cómplice</button>
     <div class="error" id="error" role="alert"></div>
-    <div class="legal">Usamos tus datos solo para contactarte sobre el plan. No los compartimos con nadie.</div>
+    <div class="legal">Solo lo usamos para escribirte sobre el plan. No lo compartimos con nadie.</div>
   </form>
 
   <div class="gracias" id="gracias">
@@ -157,7 +151,7 @@ const DIALOGO = [
   ['Mishu','der','¿Lo escaneó? 👀'],
   ['Mateo','izq','¡Sí! Ya es de los nuestros.'],
   ['Mishu','der','¿Le contamos el plan?'],
-  ['Mateo','izq','Todavía no... primero necesitamos su contacto.'],
+  ['Mateo','izq','Todavía no... primero necesitamos su WhatsApp.'],
   ['Mishu','der','Que no se entere nadie más.'],
   ['Mateo','izq','Shh. Muy pronto. 😉'],
 ];
@@ -186,7 +180,7 @@ const form = document.getElementById('form'), err = document.getElementById('err
 form.addEventListener('submit', async e => {
   e.preventDefault(); err.textContent = '';
   const d = Object.fromEntries(new FormData(form)); d.o = o;
-  if (!d.local.trim() || !d.nombre.trim() || d.whatsapp.replace(/\D/g,'').length < 7) { err.textContent = 'Escribe el nombre del local, tu nombre y tu WhatsApp.'; return; }
+  if (d.whatsapp.replace(/\D/g,'').length < 7) { err.textContent = 'Escribe tu WhatsApp.'; return; }
   btn.disabled = true; btn.textContent = 'Enviando...';
   try {
     const r = await fetch('https://business.petxia.app/api/complice', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(d) });
