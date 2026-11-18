@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="es-PA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#FBF4EC">
+<link rel="icon" href="/favicon.png?v=2">
+<title>El plan de Mateo y Mishu · petxia</title>
+<meta name="description" content="Tenemos un plan y necesitamos un cómplice.">
+<meta property="og:title" content="El plan de Mateo y Mishu">
+<meta property="og:description" content="Tenemos un plan y necesitamos un cómplice. 🤫">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Caveat:wght@600;700&family=Plus+Jakarta+Sans:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--crema:#FBF4EC;--terra:#C1663F;--terraO:#A9532F;--tx:#3B2A22;--mid:#8C7B72;--disco:#F3DCCB}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--crema);color:var(--tx);font-family:'Plus Jakarta Sans',system-ui,sans-serif;min-height:100vh}
+main{max-width:520px;margin:0 auto;padding:28px 16px 48px}
+.top{display:flex;align-items:center;justify-content:center;gap:8px;font-family:'Fredoka';font-weight:600;color:var(--terra);font-size:20px}
+.top img{width:44px}
+h1{font-family:'Caveat';font-weight:700;font-size:42px;line-height:1;text-align:center;margin:18px 0 4px}
+.sub{text-align:center;color:var(--mid);font-size:15px}
+.escena{position:relative;height:330px;margin:14px 0 10px;overflow:hidden}
+.disco{position:absolute;left:50%;top:96px;width:240px;height:240px;margin-left:-120px;border-radius:50%;background:var(--disco)}
+.pj{position:absolute;bottom:4px;width:165px}
+.pj svg{width:100%;height:auto;display:block}
+.mateo{left:calc(50% - 165px)} .mishu{left:calc(50% + 2px);width:150px}
+.burbuja{position:absolute;max-width:62%;background:#fff;border-radius:18px;padding:10px 14px;font-family:'Caveat';font-weight:600;font-size:25px;line-height:1.05;box-shadow:0 6px 18px rgba(59,42,34,.12);opacity:0;transform:translateY(8px) scale(.96);transition:all .35s ease}
+.burbuja.ver{opacity:1;transform:none}
+.burbuja.izq{left:2%;border-bottom-left-radius:4px}
+.burbuja.der{right:2%;border-bottom-right-radius:4px;text-align:right}
+.quien{display:block;font-family:'Plus Jakarta Sans';font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--terra);margin-bottom:2px}
+.repetir{display:block;margin:0 auto;background:none;border:0;color:var(--mid);font:500 13px 'Plus Jakarta Sans';text-decoration:underline;cursor:pointer}
+form,.gracias{background:#fff;border-radius:20px;padding:22px 18px;margin-top:22px;box-shadow:0 8px 28px rgba(59,42,34,.08)}
+form h2,.gracias h2{font-family:'Fredoka';font-weight:600;font-size:22px;color:var(--tx)}
+form p{color:var(--mid);font-size:14px;margin:4px 0 14px}
+label{display:block;font-size:13px;font-weight:700;margin:12px 0 5px}
+input,select{width:100%;font:500 16px 'Plus Jakarta Sans';padding:12px 13px;border:1.5px solid #E6D4C2;border-radius:12px;background:var(--crema);color:var(--tx)}
+input:focus,select:focus{outline:none;border-color:var(--terra)}
+.trampa{position:absolute;left:-9999px}
+button.ir{width:100%;margin-top:18px;background:var(--terra);color:#fff;border:0;border-radius:14px;padding:15px;font:600 18px 'Fredoka';cursor:pointer}
+button.ir:disabled{opacity:.6}
+.error{color:#B3261E;font-size:13px;margin-top:10px;min-height:1em}
+.legal{color:var(--mid);font-size:11.5px;margin-top:12px;text-align:center}
+.gracias{text-align:center;display:none}
+.gracias .duo{display:flex;justify-content:center;gap:4px;margin:6px 0 4px}
+.gracias .duo div{width:96px}
+.gracias p{font-family:'Caveat';font-size:26px;font-weight:600;line-height:1.1;margin-top:6px}
+footer{text-align:center;color:var(--mid);font-size:12px;margin-top:28px}
+</style>
+</head>
+<body>
+<main>
+  <div class="top"><img src="/assets/gato-perro.png" alt=""> petxia</div>
+  <h1>Así que tú eres nuestro cómplice 👀</h1>
+  <div class="sub">Mateo y Mishu tienen algo que decirte.</div>
+
+  <div class="escena" id="escena">
+    <div class="disco"></div>
+    <div class="pj mateo" id="pjMateo"></div>
+    <div class="pj mishu" id="pjMishu"></div>
+  </div>
+  <button class="repetir" id="repetir" type="button">Ver la conversación otra vez</button>
+
+  <form id="form" novalidate>
+    <h2>Únete a la banda</h2>
+    <p>Déjanos tu contacto y te contamos el plan antes que a nadie.</p>
+    <label for="local">Nombre de tu local</label>
+    <input id="local" name="local" autocomplete="organization" maxlength="120" required>
+    <label for="nombre">Tu nombre</label>
+    <input id="nombre" name="nombre" autocomplete="name" maxlength="120" required>
+    <label for="whatsapp">Tu WhatsApp</label>
+    <input id="whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="6000-0000" maxlength="20" required>
+    <label for="tipo">Tu local es</label>
+    <select id="tipo" name="tipo"><option value="petshop">Petshop</option><option value="grooming">Grooming</option><option value="veterinaria">Veterinaria</option></select>
+    <input class="trampa" name="web" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <button class="ir" id="enviar" type="submit">Quiero ser cómplice</button>
+    <div class="error" id="error" role="alert"></div>
+    <div class="legal">Usamos tus datos solo para contactarte sobre el plan. No los compartimos con nadie.</div>
+  </form>
+
+  <div class="gracias" id="gracias">
+    <div class="duo"><div id="gMateo"></div><div id="gMishu"></div></div>
+    <h2>¡Trato hecho!</h2>
+    <p>Pronto te escribimos. Y recuerda: no le cuentes a nadie. 🤫</p>
+  </div>
+
+  <footer>petxia · Es familia. · Ciudad de Panamá, Panamá</footer>
+</main>
+<script>
+const sombraSuelo=(w=100)=>`<ellipse cx="0" cy="168" rx="${w}" ry="11" fill="rgba(59,42,34,.10)"/>`;
+const C={tan:"#C9824F",tanO:"#A9643A",blanco:"#FFF8F0",negro:"#2A1E18",lengua:"#E06C6C",terra:"#C1663F",sombra:"rgba(59,42,34,.10)"};
+function mateo(ex, s=1){
+  const e={
+    feliz:{ojo:'<ellipse cx="0" cy="0" rx="9" ry="11" fill="'+C.negro+'"/><circle cx="3" cy="-4" r="3.2" fill="#fff"/>', ceja:'', boca:'<path d="M-22 6 Q0 30 22 6" fill="'+C.negro+'"/><path d="M-12 18 Q0 34 12 18 Q0 22 -12 18Z" fill="'+C.lengua+'"/>', orejaRot:8, cola:-25},
+    preocupado:{ojo:'<ellipse cx="0" cy="2" rx="9" ry="10" fill="'+C.negro+'"/><circle cx="2" cy="-2" r="3" fill="#fff"/>', ceja:'<path d="M-16 -22 L12 -30" stroke="'+C.tanO+'" stroke-width="6" stroke-linecap="round"/>', boca:'<path d="M-14 18 Q0 8 14 18" fill="none" stroke="'+C.negro+'" stroke-width="5" stroke-linecap="round"/>', orejaRot:-6, cola:15},
+    sorprendido:{ojo:'<circle cx="0" cy="0" r="13" fill="#fff" stroke="'+C.negro+'" stroke-width="3"/><circle cx="0" cy="1" r="7" fill="'+C.negro+'"/>', ceja:'<path d="M-14 -30 Q0 -38 14 -30" fill="none" stroke="'+C.tanO+'" stroke-width="6" stroke-linecap="round"/>', boca:'<ellipse cx="0" cy="16" rx="9" ry="12" fill="'+C.negro+'"/>', orejaRot:-18, cola:-40},
+    picaro:{ojo:'<ellipse cx="0" cy="0" rx="9" ry="11" fill="'+C.negro+'"/><circle cx="3" cy="-4" r="3.2" fill="#fff"/>', ojoR:'<path d="M-11 2 Q0 -9 11 2" fill="none" stroke="'+C.negro+'" stroke-width="5.5" stroke-linecap="round"/>', ceja:'', boca:'<path d="M-20 8 Q4 30 24 2" fill="'+C.negro+'"/><path d="M-6 20 Q6 34 16 16 Q6 20 -6 20Z" fill="'+C.lengua+'"/>', orejaRot:10, cola:-35},
+    dormido:{ojo:'<path d="M-10 0 Q0 8 10 0" fill="none" stroke="'+C.negro+'" stroke-width="5" stroke-linecap="round"/>', ceja:'', boca:'<path d="M-8 14 Q0 20 8 14" fill="none" stroke="'+C.negro+'" stroke-width="4" stroke-linecap="round"/>', orejaRot:4, cola:30},
+  }[ex];
+  const ojoL=`<g transform="translate(-30,-56)">${e.ojo}${e.ceja}</g>`;
+  const ojoR=`<g transform="translate(30,-56) scale(-1,1)">${e.ojoR||e.ojo}${e.ceja}</g>`;
+  return `<svg width="${300*s}" height="${340*s}" viewBox="-150 -170 300 340">
+    <ellipse cx="0" cy="160" rx="105" ry="12" fill="${C.sombra}"/>
+    <!-- cola -->
+    <g transform="translate(70,95) rotate(${e.cola})"><path d="M0 0 Q30 -40 18 -80" stroke="${C.tan}" stroke-width="18" fill="none" stroke-linecap="round"/><circle cx="18" cy="-80" r="10" fill="${C.blanco}"/></g>
+    <!-- cuerpo sentado -->
+    <path d="M-72 150 Q-90 40 -40 20 L40 20 Q90 40 72 150 Z" fill="${C.tan}"/>
+    <path d="M-34 150 Q-40 60 0 46 Q40 60 34 150 Z" fill="${C.blanco}"/>
+    <ellipse cx="-42" cy="150" rx="26" ry="14" fill="${C.blanco}"/><ellipse cx="42" cy="150" rx="26" ry="14" fill="${C.blanco}"/>
+    <!-- collar petxia -->
+    <path d="M-44 30 Q0 52 44 30" stroke="${C.terra}" stroke-width="12" fill="none" stroke-linecap="round"/>
+    <circle cx="0" cy="50" r="10" fill="#F2C7A8" stroke="${C.tanO}" stroke-width="2"/>
+    <!-- orejas -->
+    <g transform="translate(-62,-40) rotate(${e.orejaRot})"><path d="M0 0 Q-34 30 -22 92 Q-6 104 10 86 Q16 40 14 0 Z" fill="${C.tanO}"/></g>
+    <g transform="translate(62,-40) rotate(${-e.orejaRot})"><path d="M0 0 Q34 30 22 92 Q6 104 -10 86 Q-16 40 -14 0 Z" fill="${C.tanO}"/></g>
+    <!-- cabeza -->
+    <path d="M-66 -40 Q-70 -118 0 -122 Q70 -118 66 -40 Q64 16 0 22 Q-64 16 -66 -40 Z" fill="${C.tan}"/>
+    <!-- mancha blanca y hocico -->
+    <path d="M-7 -121 Q0 -123 7 -121 L12 -34 Q0 -28 -12 -34 Z" fill="${C.blanco}"/>
+    <ellipse cx="0" cy="-8" rx="40" ry="30" fill="${C.blanco}"/>
+    <ellipse cx="0" cy="-26" rx="16" ry="11" fill="${C.negro}"/><ellipse cx="-5" cy="-30" rx="5" ry="3" fill="#fff" opacity=".6"/>
+    <g transform="translate(0,-10)">${e.boca}</g>
+    ${ojoL}${ojoR}
+    <!-- cachetes -->
+    <circle cx="-50" cy="-24" r="10" fill="#E8977A" opacity=".45"/><circle cx="50" cy="-24" r="10" fill="#E8977A" opacity=".45"/>
+  </svg>`;
+}
+function mishu(){ const G='#8E939E',GO='#727784',GS='#7E838F',B='#FBF6F1',R='#E9A3A0',N='#2A1E18';
+return `<svg width="360" height="432" viewBox="-150 -180 300 360">${sombraSuelo(90)}<g>
+  <path d="M60 150 Q130 150 118 80 Q110 40 82 52 Q104 70 96 104 Q86 136 40 140Z" fill="${GO}"/>
+  <path d="M-62 162 Q-78 50 -34 26 L34 26 Q78 50 62 162 Z" fill="${G}"/>
+  <path d="M34 26 Q78 50 62 162 L40 162 Q56 80 24 30Z" fill="${GS}"/>
+  <path d="M-26 162 Q-30 76 0 60 Q30 76 26 162 Z" fill="${B}"/>
+  <ellipse cx="-34" cy="162" rx="22" ry="12" fill="${B}"/><ellipse cx="34" cy="162" rx="22" ry="12" fill="${B}"/>
+  <path d="M-70 -70 L-62 -150 Q-56 -158 -48 -150 L-14 -104 Z" fill="${G}"/><path d="M-60 -82 L-56 -136 L-30 -102Z" fill="${R}"/>
+  <path d="M70 -70 L62 -150 Q56 -158 48 -150 L14 -104 Z" fill="${G}"/><path d="M60 -82 L56 -136 L30 -102Z" fill="${R}"/>
+  <path d="M-74 -46 Q-76 -116 0 -118 Q76 -116 74 -46 Q72 18 0 24 Q-72 18 -74 -46Z" fill="${G}"/>
+  <path d="M-12 -116 L-8 -96 M0 -118 L0 -94 M12 -116 L8 -96" stroke="${GO}" stroke-width="6" stroke-linecap="round"/>
+  <ellipse cx="0" cy="-2" rx="34" ry="22" fill="${B}"/>
+  <g transform="translate(-30,-44)"><ellipse rx="13" ry="11" fill="#D9C46A"/><ellipse rx="4" ry="9" fill="${N}"/><path d="M-15 -3 Q0 -10 15 -3 L15 -12 L-15 -12Z" fill="${G}"/><path d="M-15 -3 Q0 -10 15 -3" stroke="${GO}" stroke-width="3" fill="none"/></g>
+  <g transform="translate(30,-44)"><ellipse rx="13" ry="11" fill="#D9C46A"/><ellipse rx="4" ry="9" fill="${N}"/><path d="M-15 -3 Q0 -10 15 -3 L15 -12 L-15 -12Z" fill="${G}"/><path d="M-15 -3 Q0 -10 15 -3" stroke="${GO}" stroke-width="3" fill="none"/></g>
+  <path d="M-7 -14 L7 -14 L0 -6Z" fill="${R}"/>
+  <path d="M0 -6 Q-6 4 -12 0 M0 -6 Q6 4 12 0" stroke="${N}" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M-36 -8 L-70 -14 M-36 0 L-70 4 M36 -8 L70 -14 M36 0 L70 4" stroke="${GO}" stroke-width="2.5" stroke-linecap="round"/>
+</g></svg>`;}
+
+
+document.getElementById('pjMateo').innerHTML = mateo('picaro',1);
+document.getElementById('pjMishu').innerHTML = mishu();
+document.getElementById('gMateo').innerHTML = mateo('picaro',1);
+document.getElementById('gMishu').innerHTML = mishu();
+
+// La conversación: no vende ni revela, solo alimenta la intriga
+const DIALOGO = [
+  ['Mishu','der','¿Lo escaneó? 👀'],
+  ['Mateo','izq','¡Sí! Ya es de los nuestros.'],
+  ['Mishu','der','¿Le contamos el plan?'],
+  ['Mateo','izq','Todavía no... primero necesitamos su contacto.'],
+  ['Mishu','der','Que no se entere nadie más.'],
+  ['Mateo','izq','Shh. Muy pronto. 😉'],
+];
+const escena = document.getElementById('escena');
+let timers = [];
+function reproducir(){
+  timers.forEach(clearTimeout); timers = [];
+  escena.querySelectorAll('.burbuja').forEach(b => b.remove());
+  DIALOGO.forEach(([quien, lado, texto], i) => {
+    timers.push(setTimeout(() => {
+      escena.querySelectorAll('.burbuja').forEach(b => b.remove());
+      const b = document.createElement('div');
+      b.className = 'burbuja ' + lado;
+      b.style.top = (i % 2 ? 26 : 6) + 'px';
+      b.innerHTML = '<span class="quien">' + quien + '</span>' + texto;
+      escena.appendChild(b);
+      requestAnimationFrame(() => b.classList.add('ver'));
+    }, 600 + i * 2300));
+  });
+}
+reproducir();
+document.getElementById('repetir').onclick = reproducir;
+
+const o = (new URLSearchParams(location.search).get('o') || 'carta').replace(/[^a-z0-9_-]/gi,'').slice(0,40);
+const form = document.getElementById('form'), err = document.getElementById('error'), btn = document.getElementById('enviar');
+form.addEventListener('submit', async e => {
+  e.preventDefault(); err.textContent = '';
+  const d = Object.fromEntries(new FormData(form)); d.o = o;
+  if (!d.local.trim() || !d.nombre.trim() || d.whatsapp.replace(/\D/g,'').length < 7) { err.textContent = 'Escribe el nombre del local, tu nombre y tu WhatsApp.'; return; }
+  btn.disabled = true; btn.textContent = 'Enviando...';
+  try {
+    const r = await fetch('https://business.petxia.app/api/complice', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(d) });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok && r.status !== 429) throw new Error(j.error || 'No pudimos guardar tus datos. Intenta de nuevo.');
+    form.style.display = 'none'; document.getElementById('gracias').style.display = 'block';
+  } catch (x) { err.textContent = x.message; btn.disabled = false; btn.textContent = 'Quiero ser cómplice'; }
+});
+</script>
+</body>
+</html>
